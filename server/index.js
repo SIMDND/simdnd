@@ -1,7 +1,3 @@
-console.log('I dont know it does not matter')
+var h = 'helloKitty'
 
-console.log('this is a message')
-
-var x = 5;
-
-const y = 12;
+const superheroMoviesAreAwesome = true;
