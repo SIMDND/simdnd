@@ -1,7 +1,7 @@
-console.log('I dont know it does not matter')
+console.log('now I am the master')
 
-console.log('this is a message')
+console.log('lalalalalalalalalalalalalalala')
 
-var x = 5;
+var matt = 'the best'
 
-const y = 12;
+const conflictVar = "deal wid it"
