@@ -5,3 +5,5 @@ console.log('lalalalalalalalalalalalalalala')
 var matt = 'the best'
 
 const conflictVar = "deal wid it"
+const Hanzo = 'RYUGAWAKATEKIWOKURAAU'
+const genji = 'ONI NO KEN WO KU RA E'
