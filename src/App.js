@@ -1,26 +1,30 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {HashRouter, Route, Switch, Redirect,Link} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './dux/store.js';
+import About from './components/About/About.js';
+import Login from './components/Login/Login.js';
+import Register from './components/Register/Register.js';
+import Game from './components/Game/Game.js';
+import User from './components/User/User.js';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
+      <Provider store={store}>
+      <HashRouter>
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Switch>
+          <Route exact path = '/' component = {About}/>
+          <Route exact path = '/login' component = {Login}/>
+          <Route exact path = '/register' component = {Register}/>
+          <Route exact path = '/game' component = {Game}/>
+          <Route exact path = '/user/:username' component = {User}/>
+        </Switch>
       </div>
+      </HashRouter>
+      </Provider>
     );
   }
 }
