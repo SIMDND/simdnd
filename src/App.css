@@ -48,4 +48,5 @@
   position: absolute;
   background: rgb(40, 40, 40);
   bottom: 0;
+  overflow:hidden;
 }

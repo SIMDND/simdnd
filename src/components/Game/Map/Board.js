@@ -16,7 +16,7 @@ class Board extends Component{
         ]),
       };
       static defaultProps = {
-        rows: 5,
+        rows: 8,
         cols: 8,
         onClick: () => {},
         primaryColor: '#d18b47',
@@ -27,13 +27,13 @@ class Board extends Component{
     componentDidMount(){
 
     }
-
+  
     render(){
-        // const tokens = React.Children.map(this.props.children, child => {
-        //     const square = child.props.square;
-        //     const { x, y } = this._algebraicToCartesian(square);
-        //     return React.cloneElement(child, { x, y });
-        //   });
+        const tokens = React.Children.map(this.props.children, child => {
+            const square = child.props.square;
+            const { x, y } = this._algebraicToCartesian(square);
+            return React.cloneElement(child, { x, y });
+          });
         let colorMap = {};
     for (let x = 0; x < this.props.cols; x++) {
       for (let y = 0; y < this.props.rows; y++) {
@@ -58,7 +58,7 @@ class Board extends Component{
         onClick={this.onClick}
         colorMap={colorMap}
         >
-        
+        {tokens}
         
         </Grid>
         )
