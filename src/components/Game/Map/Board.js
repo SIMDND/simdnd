@@ -28,6 +28,23 @@ class Board extends Component{
 
     }
   
+    _algebraicToCartesian(square) {
+        let regexp = /([A-Za-z])(\d+)/g;
+        let match = regexp.exec(square);
+        if (match == null) {
+          throw 'Invalid square provided: ' + square;
+        }
+        let colSymbol = match[1].toLowerCase();
+        let col = colSymbol.charCodeAt(0) - 'a'.charCodeAt(0);
+        let row = parseInt(match[2]);
+        return { x: col, y: this.props.rows - row };
+      }
+    
+      _cartesianToAlgebraic(x, y) {
+        let colSymbol = String.fromCharCode(x + 'a'.charCodeAt(0));
+        return colSymbol + (this.props.rows - y);
+      }
+    
     render(){
         const tokens = React.Children.map(this.props.children, child => {
             const square = child.props.square;

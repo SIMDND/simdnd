@@ -37,21 +37,44 @@ class Game extends Component{
         return result;
       }
       _getInitialCell(square) {
-        let history = this.chess.history({ verbose: true });
+        // let history = this.chess.history({ verbose: true });
         let lastSeen = square;
-        for (let i = history.length - 1; i >= 0; i--) {
-          let move = history[i];
-          if (lastSeen == move.to) {
-            lastSeen = move.from;
-          }
-        }
+        // for (let i = history.length - 1; i >= 0; i--) {
+        //   let move = history[i];
+        //   if (lastSeen == move.to) {
+        //     lastSeen = move.from;
+        //   }
+        // }
         return lastSeen;
       }
       _getPieceByType(type) {
       
             return <Piece charType={type} />
         }
-      
+        click = ({ square }) => {
+            if (!this.props.isActive) {
+              return;
+            }
+        
+            if (!this.state.selected && this._isSelectable(square)) {
+              this.setState({ selected: square });
+            }
+        
+            if (this.state.selected) {
+              let moves = this._getMoves();
+              let move = moves.find(
+                move => move.from == this.state.selected && move.to == square
+              );
+              if (move) {
+                this.props.moves.move(move.san);
+              } else {
+                this.setState({ selected: '' });
+              }
+            }
+          };
+          _getMoves(){
+              
+          }
 
     render(){
         return (
