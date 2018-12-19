@@ -1,3 +1,4 @@
+
 const express = require('express');
 require('dotenv').config();
 const massive = require('massive');
@@ -16,6 +17,7 @@ app.use(session({
 //Authentication end points
 app.post('/auth/login', authctrl.login)
 app.post('/auth/register', authctrl.register)
+
 //Authentication Endpoint END
 
 
@@ -33,7 +35,9 @@ massive(CONNECTION_STRING).then(db=> {
 //Socket anything will go here, After the listening
 io.on("connection", socket => {
     
-
+    socket.on('send-message', data=>{
+        io.to(data.room).emit('update-messages',{messagesArray:data.messagesArray});
+    })
 
     /*
     socket.on("come-inside",data=>{
