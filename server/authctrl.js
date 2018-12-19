@@ -8,7 +8,7 @@ module.exports={
         let result = bcrypt.compareSync(password, foundUser.user_hash)
         if(result){
             req.session.user = foundUser;
-            res.status(200).send({status:'loggedIn', user:req.session.user})
+            res.status(200).send({status:'loggedIn', userEmail:req.session.user.user_email, userName: req.session.user_name})
         }else{
             console.log('invalid user or pass')
             res.status(401).send('invalid username or password');
@@ -21,6 +21,6 @@ module.exports={
         let hash = bcrypt.hashSync(password, salt);
         let user = db.auth.create_user([email, userName, hash])
         req.session.user = user;
-        res.status(200).send({status:'loggedIn', user:req.session.user})
+        res.status(200).send({status:'loggedIn', userEmail:req.session.user.user_email, userName: req.session.user_name})
     }
 }
