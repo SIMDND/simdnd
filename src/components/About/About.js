@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Chat from '../Game/Chat.js';
+import axios from 'axios';
 import './About.css'
 
 class About extends Component{
@@ -12,13 +13,12 @@ class About extends Component{
     }
 
     componentDidMount(){
-
+        
     }
 
     render(){
         return (
             <div>
-                
             </div>
         )
     }

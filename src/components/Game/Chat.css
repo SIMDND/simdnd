@@ -51,3 +51,10 @@ font-size:1.4em;
 .text-carrier{
     width:100%;
 }
+
+.save-messages-button{
+    position:relative;
+    height:30%;
+    width:25%;
+    top:23%;
+}
