@@ -20,7 +20,7 @@ code {
 
 button {
   font-size: 20px;
-  width: auto;
+  width: 81px;
   height: 30px;
   color: #f0f0f0;
   border: none;
@@ -49,3 +49,4 @@ button:disabled{
 input {
   border-radius: 5px;
 }
+

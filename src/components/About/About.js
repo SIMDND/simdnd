@@ -11,14 +11,9 @@ class About extends Component{
         }
     }
 
-    componentDidMount(){
-
-    }
-
     render(){
         return (
             <div>
-                {/* <Chat/> */}
             </div>
         )
     }
