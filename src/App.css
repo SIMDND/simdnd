@@ -24,6 +24,8 @@
 
 .Logo{
   display: flex;
+  justify-content: center;
+  align-items: center
 }
 
 .Logo h1{
@@ -41,6 +43,10 @@
   font-size: 210%;
 }
 
+.Header h1:hover{
+  font-size: 210%;
+}
+
  a{
   color:#F0F0F0;
   font-family: 'Carter One', cursive;
@@ -51,7 +57,7 @@
 
 
 
-.Header span{
+.User-info span{
   background-color:#F0F0F0;
   margin: 0px 10px 0px 10px;
   height: 50px;
@@ -63,6 +69,8 @@
 .User-info{
   display: flex;
   align-items: center;
+  width: auto;
+  flex-wrap: nowrap;
 }
 
 .Content-container{
@@ -74,5 +82,5 @@
 }
 
 .Logo img{
-  height: 50px;
+  height: 70%;
 }

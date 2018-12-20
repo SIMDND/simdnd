@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { connect } from 'react-redux'
+import { updateUser } from '../../dux/reducer'
 
 class Register extends Component {
   constructor(props) {
@@ -27,6 +29,9 @@ class Register extends Component {
     let data = { ...this.state };
     let res = await axios.post(`/auth/register`, data);
     console.log(res.data);
+    if(res.data.status === 'loggedIn'){
+        this.props.updateUser(res.data)
+    }
   }
   handleUsernameChange(e) {
     this.setState({
@@ -54,10 +59,10 @@ class Register extends Component {
           }}
         />
         Finally, please click register!
-        <button onClick={() => this.handleSubmit()}>Register</button>
+        <button disabled={!this.state.email || !this.state.password || !this.state.userName} onClick={() => this.handleSubmit()}>Register</button>
       </div>
     );
   }
 }
 
-export default Register;
+export default connect(null, {updateUser} )(Register);
