@@ -1,11 +1,12 @@
 .about{
+    height: 100%;
     display:flex;
     flex-direction:column;
     align-items:center;
+    overflow:hidden;
 }
 
 .title-card{
-    position:relative;
     font-size:4em;
     font-family: Lucida;
     color:#F9F9F9;
@@ -14,29 +15,31 @@
 }
 
 .technologies-rectangle{
-    position:relative;
-    top:-60px;
+    bottom:60px;
     height:200px;
     width:960px;
 }
 
 .description{
-    position:relative;
     font-family: Lucida;
     color:#F9F9F9;
     font-size:3em;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
     width:800px;
     /* left:225px; */
-    top:-100px;
+    /* top:-100px; */
 }
 
 .options{
-    position:relative;
+    /* position:relative; */
     height:100px;
     width:1000px;
-    background-color:yellow;
     top:-130px;
     display:flex;
     justify-content: space-between;
+    margin-bottom:30px;
+}
+
+button{
+    width:80px;
 }
