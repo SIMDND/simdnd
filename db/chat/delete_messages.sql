@@ -1,0 +1,1 @@
+delete from chat_info where campaign_id = $1;
