@@ -19,20 +19,43 @@
   font-family: 'Lusitana', serif;
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+  
 }
 
-.Header > h1{
+.Logo{
+  display: flex;
+}
+
+.Logo h1{
   color:#F0F0F0;
   font-family: 'Carter One', cursive;
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+  text-decoration: none;
 }
+.Logo h1:hover{
+  font-size: 205%;
+}
+
+.User-name h1:hover{
+  font-size: 210%;
+}
+
+ a{
+  color:#F0F0F0;
+  font-family: 'Carter One', cursive;
+  margin: 0px 10px 0px 10px;
+  text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+  text-decoration: none;
+}
+
 
 
 .Header span{
   background-color:#F0F0F0;
-  height: 70px;
-  width: 70px;
+  margin: 0px 10px 0px 10px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
 }
@@ -49,4 +72,8 @@
   background: rgb(40, 40, 40);
   bottom: 0;
   overflow:hidden;
+}
+
+.Logo img{
+  height: 50px;
 }
