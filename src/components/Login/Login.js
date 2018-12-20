@@ -52,7 +52,7 @@ class Login extends Component {
           }}
         />
         Finally, please click Log In!
-        <button onClick={() => this.handleSubmit()}>Log In</button>
+        <button  disabled={!this.state.email || !this.state.password}onClick={() => this.handleSubmit()}>Login</button>
       </div>
     );
   }

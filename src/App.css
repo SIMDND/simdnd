@@ -24,6 +24,8 @@
 
 .Logo{
   display: flex;
+  justify-content: center;
+  align-items: center
 }
 
 .Logo h1{
@@ -80,5 +82,5 @@
 }
 
 .Logo img{
-  height: 50px;
+  height: 70%;
 }

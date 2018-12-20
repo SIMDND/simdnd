@@ -59,7 +59,7 @@ class Register extends Component {
           }}
         />
         Finally, please click register!
-        <button onClick={() => this.handleSubmit()}>Register</button>
+        <button disabled={!this.state.email || !this.state.password || !this.state.userName} onClick={() => this.handleSubmit()}>Register</button>
       </div>
     );
   }
