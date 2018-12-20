@@ -13,12 +13,15 @@ class About extends Component{
         }
     }
 
+    
+
     componentDidMount(){
         
     }
 
     render(){
         return (
+            
             <div className='about'>
             <h1 className='title-card'>About</h1>
             <img className='technologies-rectangle' src={Rectangle}></img>
