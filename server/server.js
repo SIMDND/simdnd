@@ -17,6 +17,7 @@ app.use(session({
 //Authentication end points
 app.post('/auth/login', authctrl.login)
 app.post('/auth/register', authctrl.register)
+app.get('/auth/get-user', authctrl.getUser)
 
 //Authentication Endpoint END
 
