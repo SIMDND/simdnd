@@ -5,8 +5,9 @@ import axios from 'axios'
 import Logo from './logo.svg'
 import store from './dux/store.js';
 import About from './components/About/About.js';
-import Login from './components/Login/Login.js';
-import Register from './components/Register/Register.js';
+import Login from './components/Login-Register/Login';
+import Register from './components/Login-Register/Register';
+import Join from './components/Login-Register/Join'
 import Game from './components/Game/Game.js';
 import User from './components/User/User.js';
 import './App.css';
@@ -18,7 +19,12 @@ class App extends Component {
     this.state={
       userName: "",
       userEmail: "",
+      loginModal: false,
+      registerModal: false,
+      joinModal: false,
     }
+    this.toggleLogin=this.toggleLogin.bind(this)
+    this.toggleRegister=this.toggleRegister.bind(this)
   }
 
   async componentDidMount(){
@@ -39,11 +45,26 @@ class App extends Component {
     }
   }
 
+  toggleLogin(){
+    this.setState({
+      loginModal: !this.state.loginModal
+    })
+  }
+
+  toggleRegister(){
+    this.setState({
+      registerModal: !this.state.registerModal
+    })
+  }
+
   render() {
     return (
       <Provider store={store}>
       <HashRouter>
       <div className="App">
+        <Login visible={this.state.loginModal} toggleLogin={this.toggleLogin}/>
+        <Register visible={this.state.registerModal} toggleRegister={this.toggleRegister}/>
+        <Join visible={this.state.registerModal} toggleRegister={this.toggleRegister}/>
       <div className="Header">
       <Link  className ="Logo" to="/">
         <h1>Phat Dragon</h1>
@@ -59,9 +80,7 @@ class App extends Component {
       </div >
       <div className="Content-container">
         <Switch > 
-          <Route exact path = '/' component = {About}/>
-          <Route exact path = '/login' component = {Login}/>
-          <Route exact path = '/register' component = {Register}/>
+          <Route exact path = '/' render = {(props) =><About {...props} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister}/>}></Route>
           <Route exact path = '/game' component = {Game}/>
           <Route exact path = '/user/:username' component = {User}/>
         </Switch>

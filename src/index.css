@@ -3,6 +3,7 @@
 * {
   font-family: "Lusitana", serif;
 }
+
 body {
   margin: 0;
   padding: 0;
@@ -20,13 +21,13 @@ code {
 
 button {
   font-size: 20px;
-  width: auto;
+  width: 81px;
   height: 30px;
   color: #f0f0f0;
   border: none;
   background: #9f1a1a;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
-    inset 3px 3px 2px rgba(227, 208, 208, 0.5);
+    inset 1px 1px 5px rgba(227, 208, 208, 0.5);
   border-radius: 5px;
 }
 
@@ -49,3 +50,4 @@ button:disabled{
 input {
   border-radius: 5px;
 }
+
