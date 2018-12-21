@@ -12,11 +12,11 @@ class NPC extends React.Component {
     
     
     return (
-      <g transform="scale(.022222,.022222)">
+      <g transform="scale(.022222,.022222)" onClick={this.props.onClick}>
        
   
     
-<circle cx="22.5" cy="22.5" r="20" fill="#028575"/>
+<circle cx="22.5" cy="22.5" r="20" fill="#028575" />
 
 
         </g>

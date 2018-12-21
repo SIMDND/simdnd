@@ -8,7 +8,7 @@ import About from './components/About/About.js';
 import Login from './components/Login-Register/Login';
 import Register from './components/Login-Register/Register';
 import Join from './components/Login-Register/Join'
-import Game from './components/Game/Game.js';
+import Game from './components/Game/Dnd';
 import User from './components/User/User.js';
 import './App.css';
 

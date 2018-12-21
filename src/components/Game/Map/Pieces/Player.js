@@ -11,7 +11,7 @@ class NPC extends React.Component {
     
     
     return (
-      <g transform="scale(.022222,.022222)">
+      <g transform="scale(.022222,.022222)" onClick={this.props.onClick}>
        
   
     

@@ -1,8 +1,8 @@
 
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-class NPC extends React.Component {
+class NPC extends Component {
   static propTypes = {
     color: PropTypes.string,
   };
@@ -12,7 +12,7 @@ class NPC extends React.Component {
     
     
     return (
-      <g transform="scale(.022222,.022222)">
+      <g transform="scale(.022222,.022222)" onClick={this.props.onClick}>
        
   
     
