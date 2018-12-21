@@ -71,7 +71,7 @@ class App extends Component {
         <img src={Logo} alt="logo"/>
       </Link>
         <div className="User-info">
-        {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to="/user/:username">
+        {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/${this.state.userName}}`}>
             <h1>{this.state.userName}</h1>
           </Link>}
           {!this.state.userName && !this.state.userEmail? null:
