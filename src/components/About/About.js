@@ -13,10 +13,19 @@ class About extends Component{
         }
     }
 
-    
-
     componentDidMount(){
         
+    }
+
+    getAllPositionsICanMoveTo(height,width,x,y,spaces){
+        let arr = [];
+        const getSpaces = (h,w,xcoor,ycoor,numspaces)=>{
+            if (numspaces === 0){
+
+            }else{
+                
+            }
+        }
     }
 
     render(){
