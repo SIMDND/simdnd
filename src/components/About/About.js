@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 // import Chat from '../Game/Chat.js';
 // import axios from 'axios';
-import Rectangle from './Rectangle.svg';
 import './About.css'
 
 class About extends Component{
@@ -9,14 +8,18 @@ class About extends Component{
         super(props);
 
         this.state = {
-
+            userName: this.props.userName,
+            userEmail: this.props.userEmail,
         }
     }
 
-    
-
-    componentDidMount(){
-        
+    componentDidUpdate(prevProps){
+        if(this.props.userEmail !== prevProps.userEmail || this.props.userName !== prevProps.userName){
+            this.setState({
+                userName: this.props.userName,
+                userEmail: this.props.userEmail,
+            })
+        }
     }
 
     render(){
@@ -24,13 +27,13 @@ class About extends Component{
             
             <div className='about'>
             <h1 className='title-card'>About</h1>
-            <img className='technologies-rectangle' src={Rectangle}></img>
-            <p className = 'description'>Phat Dragon uses the above technologies to give users the ultimate D20 Roll-Playing Game Experience</p>
-            <div className = 'options'>
-                    <button onClick={this.props.toggleRegister}>Register</button>
+            <p className = 'description'>Phat Dragon is the ultimate D20 Roll-Playing Game Experience!</p>
+            
+                {this.state.userEmail || this.state.userName? <div className = 'options'><button onClick={this.props.toggleJoin}>Join</button></div>   : <div className = 'options'><button onClick={this.props.toggleRegister}>Register</button>
                     <button onClick={this.props.toggleLogin}>Login</button>
-                    <button>Join</button>
-                </div>    
+                    <button onClick={this.props.toggleJoin}>Join</button></div> }
+                    
+                 
                 </div>
         )
     }
