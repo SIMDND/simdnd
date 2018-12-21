@@ -22,6 +22,17 @@ class About extends Component{
         }
     }
 
+    getAllPositionsICanMoveTo(height,width,x,y,spaces){
+        let arr = [];
+        const getSpaces = (h,w,xcoor,ycoor,numspaces)=>{
+            if (numspaces === 0){
+
+            }else{
+                
+            }
+        }
+    }
+
     render(){
         return (
             
