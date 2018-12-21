@@ -2,7 +2,7 @@
     display: none
 }
 
-.Login-modal {
+.Modal {
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,13 +4,13 @@ import "./Login-Register.css";
 import { connect } from "react-redux";
 import { updateUser } from "../../dux/reducer";
 
-class Login extends Component {
+class Join extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      email: "",
-      password: "",
+      playerName: "",
+      roomCode: "",
       visible: this.props.visible,
     };
     this.toggle=this.toggle.bind(this)
@@ -31,16 +31,10 @@ class Login extends Component {
       this.props.toggleLogin()
   }
 
-  handleEmailChange(e) {
-    this.setState({
-      email: e.target.value
-    });
-  }
-  handlePasswordChange(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
   async handleSubmit() {
     let data = { ...this.state };
     let res = await axios.post(`/auth/login`, data);
@@ -53,36 +47,39 @@ class Login extends Component {
 
   render() {
     return (
-      <div className={this.state.visible? "Modal": "invisible"}>
+      <div className={this.state.visible? "Login-modal": "invisible"}>
         <div className="Modal-content">
-          <h1>Welcome Back!</h1>
+          <h1></h1>
           <div className="Input-form">
             <div className="Input-labels">
-              <h3>Email:</h3>
-              <h3>Password:</h3>
+              <h3>Player Name:</h3>
+              <h3>Room Code:</h3>
             </div>
             <div className="Form-inputs">
               <input
                 type="text"
-                onChange={e => {
-                  this.handleEmailChange(e);
-                }}
+                name="playerName"
+                onChange={this.handleChange}
               />
               <input
-                type="password"
-                onChange={e => {
-                  this.handlePasswordChange(e);
-                }}
+                type="text"
+                name="roomCode"
+                onChange={this.handleChange}
               />
             </div>
           </div>
           <div className="Modal-buttons">
           <button onClick={this.toggle}>Cancel</button>
             <button
-              disabled={!this.state.email || !this.state.password}
-              onClick={() => this.handleSubmit()}
+              onClick={this.toggle}
             >
-              Login
+              Cancel
+            </button>
+            <button
+              disabled={!this.state.playerName || !this.state.roomCode}
+              onClick={this.toggle}
+            >
+              Join
             </button>
           </div>
         </div>
@@ -94,4 +91,4 @@ class Login extends Component {
 export default connect(
   null,
   { updateUser }
-)(Login);
+)(Join);

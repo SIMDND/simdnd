@@ -7,6 +7,7 @@ import store from './dux/store.js';
 import About from './components/About/About.js';
 import Login from './components/Login-Register/Login';
 import Register from './components/Login-Register/Register';
+import Join from './components/Login-Register/Join'
 import Game from './components/Game/Game.js';
 import User from './components/User/User.js';
 import './App.css';
@@ -20,6 +21,7 @@ class App extends Component {
       userEmail: "",
       loginModal: false,
       registerModal: false,
+      joinModal: false,
     }
     this.toggleLogin=this.toggleLogin.bind(this)
     this.toggleRegister=this.toggleRegister.bind(this)
@@ -60,9 +62,10 @@ class App extends Component {
       <Provider store={store}>
       <HashRouter>
       <div className="App">
-      <div className="Header">
         <Login visible={this.state.loginModal} toggleLogin={this.toggleLogin}/>
         <Register visible={this.state.registerModal} toggleRegister={this.toggleRegister}/>
+        <Join visible={this.state.registerModal} toggleRegister={this.toggleRegister}/>
+      <div className="Header">
       <Link  className ="Logo" to="/">
         <h1>Phat Dragon</h1>
         <img src={Logo} alt="logo"/>

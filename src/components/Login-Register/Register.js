@@ -17,8 +17,6 @@ class Register extends Component {
     this.toggle=this.toggle.bind(this)
   }
 
-  componentDidMount() {}
-
   componentDidUpdate(prevProps){
     if(this.props.visible !== prevProps.visible){
       this.setState({
@@ -61,7 +59,7 @@ class Register extends Component {
 
   render() {
     return (
-      <div className={this.state.visible ? "Login-modal" : "invisible"}>
+      <div className={this.state.visible ? "Modal" : "invisible"}>
         <div className="Modal-content">
           <h1>Register</h1>
           <div className="Input-form">
