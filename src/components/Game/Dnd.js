@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import Board from './Map/Board'
 
-class Board extends Component{
+
+class Dnd extends Component{
     constructor(props){
         super(props);
 
@@ -8,18 +10,17 @@ class Board extends Component{
 
         }
     }
-
-    componentDidMount(){
-
-    }
-
+    
+    
     render(){
         return (
             <div>
+                <Board>
                 
+                </Board>
             </div>
         )
     }
 }
 
-export default Board;
+export default Dnd;
