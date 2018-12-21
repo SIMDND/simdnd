@@ -84,6 +84,7 @@
   position: absolute;
   background: rgb(8, 8, 8);
   bottom: 0;
+  overflow:hidden;
 }
 
 .Logo img{
