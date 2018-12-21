@@ -10,7 +10,7 @@
   position: fixed;
   width: 100vw;
   height: 100vh;
-  color: #f0f0f0;
+  color: rgb(150,150,150);
   top: 0;
   z-index: 2;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
@@ -23,7 +23,7 @@
   justify-content: space-around;
   align-items: center;
   position: fixed;
-  background: rgb(40, 40, 40);
+  background: rgb(8, 8, 8);
   width: 40%;
   height: 50%;
   border-radius: 10px;

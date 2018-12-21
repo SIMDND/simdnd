@@ -3,4 +3,4 @@ CREATE TABLE campaign_info
 campaign_id SERIAL,
 campaign_name VARCHAR(40),
 room_code VARCHAR(40)
-)
+);
