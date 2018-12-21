@@ -1,0 +1,45 @@
+.about{
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow:hidden;
+}
+
+.title-card{
+    font-size:4em;
+    font-family: Lucida;
+    color:#F9F9F9;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+    top:-30px;
+}
+
+.technologies-rectangle{
+    bottom:60px;
+    height:200px;
+    width:960px;
+}
+
+.description{
+    font-family: Lucida;
+    color:#F9F9F9;
+    font-size:3em;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
+    width:800px;
+    /* left:225px; */
+    /* top:-100px; */
+}
+
+.options{
+    /* position:relative; */
+    height:100px;
+    width:1000px;
+    top:-130px;
+    display:flex;
+    justify-content: space-between;
+    margin-bottom:30px;
+}
+
+button{
+    width:80px;
+}
