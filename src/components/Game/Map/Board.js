@@ -1,7 +1,20 @@
 import React, {Component} from 'react';
-import {Grid} from 'boardgame.io/ui';
+import { Token } from 'boardgame.io/ui';
 import PropTypes from 'prop-types';
+import NPC from './Pieces/NPC'
+import Player from './Pieces/Player'
+import Baggai from './Pieces/Baggai'
+import Map from './Map'
+const SELECTED_COLOR = 'green';
+const MOVABLE_COLOR = 'palegreen';
 class Board extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      selected:{x:0, y:0}
+    }
+  }
+
     static propTypes = {
         rows: PropTypes.number,
         cols: PropTypes.number,
@@ -9,75 +22,58 @@ class Board extends Component{
         primaryColor: PropTypes.string,
         secondaryColor: PropTypes.string,
         highlightedSquares: PropTypes.object,
-        style: PropTypes.object,
-        children: PropTypes.oneOfType([
-          PropTypes.arrayOf(PropTypes.element),
-          PropTypes.element,
-        ]),
       };
       static defaultProps = {
-        rows: 8,
-        cols: 8,
-        onClick: () => {},
-        primaryColor: '#d18b47',
-        secondaryColor: '#ffce9e',
-        highlightedSquares: {},
-        style: {},
+        rows: 0,
+        cols: 0
       };
     componentDidMount(){
 
     }
-  
-    _algebraicToCartesian(square) {
-        let regexp = /([A-Za-z])(\d+)/g;
-        let match = regexp.exec(square);
-        if (match == null) {
-          throw 'Invalid square provided: ' + square;
-        }
-        let colSymbol = match[1].toLowerCase();
-        let col = colSymbol.charCodeAt(0) - 'a'.charCodeAt(0);
-        let row = parseInt(match[2]);
-        return { x: col, y: this.props.rows - row };
-      }
-    
-      _cartesianToAlgebraic(x, y) {
-        let colSymbol = String.fromCharCode(x + 'a'.charCodeAt(0));
-        return colSymbol + (this.props.rows - y);
-      }
+// squareSelect(){
+//   let prevX = this.state.x;
+//   let prevY = this.state.y;
+//   prevX++;
+//   prevY++;
+// this.setState({
+
+//   x:prevX,
+//   y:prevY,
+// })
+// }
+squareSelect = (x, y) => {
+
+    this.setState({ selected: {x, y }});
+  console.log(this.state.selected);
+}
+getHighlightedSquares() {
+  let result = {};
+  if(this.state.selected) {
+    let newnum = `${this.state.selected.x},${this.state.selected.y}`
+    result[this.state.selected] = SELECTED_COLOR;
+  }
+  return result;
+}
     
     render(){
-        const tokens = React.Children.map(this.props.children, child => {
-            const square = child.props.square;
-            const { x, y } = this._algebraicToCartesian(square);
-            return React.cloneElement(child, { x, y });
-          });
-        let colorMap = {};
-    for (let x = 0; x < this.props.cols; x++) {
-      for (let y = 0; y < this.props.rows; y++) {
-        const key = `${x},${y}`;
-        let color = this.props.secondaryColor;
-        if ((x + y) % 2 == 0) {
-          color = this.props.primaryColor;
-        }
-        colorMap[key] = color;
-      }
-    }
-    for (const square in this.props.highlightedSquares) {
-        const { x, y } = this._algebraicToCartesian(square);
-        const key = `${x},${y}`;
-        colorMap[key] = this.props.highlightedSquares[square];
-      }
+
 
         return (
-        <Grid rows={this.props.rows}
-        cols={this.props.cols}
-        style={this.props.style}
-        onClick={this.onClick}
-        colorMap={colorMap}
-        >
-        {tokens}
-        
-        </Grid>
+     <Map rows={15} cols={15} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}
+     highlightedSquares={this.getHighlightedSquares()}>
+     <Token x={this.state.x} y={this.state.y} animate={true} onClick={this.squareSelect.bind(this)}>
+     
+       <NPC/>
+     </Token>
+     <Token x={2} y={2} animate={true} onClick={this.squareSelect.bind(this)}>
+     <Player />
+       
+     </Token>
+     <Token x={1} y={1} animate={true} onClick={this.squareSelect.bind(this)}>
+     <Baggai />
+       
+     </Token>
+     </Map>
         )
     }
 }
