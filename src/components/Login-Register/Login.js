@@ -64,6 +64,7 @@ class Login extends Component {
             <div className="Form-inputs">
               <input
                 type="text"
+                name="email"
                 onChange={e => {
                   this.handleEmailChange(e);
                 }}
