@@ -34,6 +34,7 @@
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
   text-decoration: none;
+  
 }
 .Logo h1:hover{
   font-size: 205%;
@@ -45,6 +46,7 @@
 
 .Header h1:hover{
   font-size: 210%;
+  cursor: pointer;
 }
 
  a{

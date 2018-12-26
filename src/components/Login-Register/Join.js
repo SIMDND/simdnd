@@ -28,7 +28,7 @@ class Join extends Component {
       this.setState({
           visible: !this.state.visible
       })
-      this.props.toggleLogin()
+      this.props.toggleJoin()
   }
 
   handleChange = e => {
@@ -49,7 +49,7 @@ class Join extends Component {
     return (
       <div className={this.state.visible? "Login-modal": "invisible"}>
         <div className="Modal-content">
-          <h1></h1>
+          <h1>Join Game</h1>
           <div className="Input-form">
             <div className="Input-labels">
               <h3>Player Name:</h3>
@@ -70,11 +70,6 @@ class Join extends Component {
           </div>
           <div className="Modal-buttons">
           <button onClick={this.toggle}>Cancel</button>
-            <button
-              onClick={this.toggle}
-            >
-              Cancel
-            </button>
             <button
               disabled={!this.state.playerName || !this.state.roomCode}
               onClick={this.toggle}

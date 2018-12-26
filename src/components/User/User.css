@@ -1,0 +1,16 @@
+h2{
+    color: azure;
+}
+
+.campaign-options{
+    width:200px;
+    display: flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.user{
+    align-items:center;
+    display:flex;
+    flex-direction:column;
+}
