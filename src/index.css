@@ -21,18 +21,18 @@ code {
 
 button {
   font-size: 20px;
-  width: 81px;
+  width: 120px;
   height: 30px;
-  color: #f0f0f0;
+  color:rgb(210, 210, 210);
   border: none;
-  background: #9f1a1a;
+  background: rgb(80, 10, 10);
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25),
     inset 1px 1px 5px rgba(227, 208, 208, 0.5);
   border-radius: 5px;
 }
 
 button:active {
-  color: #f0f0f0;
+  color:rgb(210, 210, 210);
   background: #c81414;
   box-shadow: inset 3px 3px 4px rgba(0, 0, 0, 0.3);
 }
@@ -43,11 +43,12 @@ button:focus{
 
 button:disabled{
   color: #383737;
-  background: #3C0404;
+  background: rgb(40, 4, 4);
   box-shadow: inset 5px 5px 2px rgba(0, 0, 0, 0.5);
 }
 
 input {
   border-radius: 5px;
+  color: rgb(180,180,180)
 }
 

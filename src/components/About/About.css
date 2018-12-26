@@ -9,7 +9,7 @@
 .title-card{
     font-size:4em;
     font-family: 'Carter One', cursive;
-    color:#F9F9F9;
+    color:rgb(150, 150, 150);
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
     top:-30px;
 }
@@ -22,7 +22,7 @@
 
 .description{
     font-family: Lucida;
-    color:#F9F9F9;
+    color:rgb(150, 150, 150);
     font-size:3em;
     text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
     width:800px;

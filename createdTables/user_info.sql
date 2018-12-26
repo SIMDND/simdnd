@@ -5,4 +5,4 @@ user_name VARCHAR(40) UNIQUE,
 user_hash TEXT,
 active BOOLEAN,
 registerDate TIMESTAMP
-)
+);

@@ -6,7 +6,6 @@ import './About.css'
 class About extends Component{
     constructor(props){
         super(props);
-
         this.state = {
             userName: this.props.userName,
             userEmail: this.props.userEmail,
