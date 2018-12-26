@@ -1,4 +1,4 @@
-h2{
+h2,h3{
     color: azure;
 }
 
@@ -13,4 +13,12 @@ h2{
     align-items:center;
     display:flex;
     flex-direction:column;
+}
+
+.are-you-sure{
+    position:absolute;
+    background-color:yellow;
+    height:300px;
+    width:300px;
+    z-index:1;
 }
