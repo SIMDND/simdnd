@@ -5,8 +5,9 @@ const massive = require('massive');
 const socket = require('socket.io');
 const app = express();
 const authctrl = require('./authctrl.js');
-const chatctrl = require('./chatctrl.js')
-const session = require('express-session')
+const chatctrl = require('./chatctrl.js');
+const campctrl = require('./campctrl.js');
+const session = require('express-session');
 app.use(express.json());
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
 app.use(session({
@@ -24,6 +25,11 @@ app.get('/auth/get-user', authctrl.getUser)
 
 
 //Add endpoints here!
+
+//campaign endpoints
+app.post('/camp/create',campctrl.createCampaign)
+app.put('/camp/edit-name',campctrl.editCampaignName)
+app.put('/camp/edit-room',campctrl.editRoomCode)
 
 //Chat endpoints
 app.post('/api/updatemessages', chatctrl.updateMessages);
