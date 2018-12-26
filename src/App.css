@@ -4,7 +4,8 @@
 
 .Header{
   margin: 0;
-  background: #9F1A1A;
+  background: rgb(80, 10, 10);
+  background: rgb(0, 0, 0);
   height: 10vh;
   width: 100vw;
   display: flex;
@@ -15,7 +16,8 @@
   position: absolute;
 }
 .Header h1{
-  color:#F0F0F0;
+  color:rgb(200, 200, 200);
+  color:rgb(200, 10, 10);
   font-family: 'Lusitana', serif;
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
@@ -29,7 +31,8 @@
 }
 
 .Logo h1{
-  color:#F0F0F0;
+  color:rgb(200, 200, 200);
+  color:rgb(200, 10, 10);
   font-family: 'Carter One', cursive;
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
@@ -50,7 +53,7 @@
 }
 
  a{
-  color:#F0F0F0;
+  color:rgb(200, 200, 200);
   font-family: 'Carter One', cursive;
   margin: 0px 10px 0px 10px;
   text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
@@ -60,7 +63,7 @@
 
 
 .User-info span{
-  background-color:#F0F0F0;
+  background-color:(210, 210, 210);
   margin: 0px 10px 0px 10px;
   height: 50px;
   width: 50px;
@@ -79,8 +82,9 @@
   height: 90vh;
   width: 100vw;
   position: absolute;
-  background: rgb(40, 40, 40);
+  background: rgb(10, 10, 10);
   bottom: 0;
+  overflow:hidden;
 }
 
 .Logo img{
@@ -99,7 +103,7 @@ align-items: center;
 position: fixed;
 width: 100vw;
 height: 100vh;
-color: #f0f0f0;
+color:rgb(200, 200, 200);
 top: 0;
 z-index: 1;
 text-shadow: 5px 5px 5px rgba(0, 0, 0, 0.603);
@@ -112,7 +116,7 @@ flex-direction: column;
 justify-content: space-around;
 align-items: center;
 position: fixed;
-background: rgb(40, 40, 40);
+background: rgb(8, 8, 8);
 width: 40%;
 height: 50%;
 border-radius: 10px;
