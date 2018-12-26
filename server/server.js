@@ -27,9 +27,11 @@ app.get('/auth/get-user', authctrl.getUser)
 //Add endpoints here!
 
 //campaign endpoints
+app.get('/camp/get-camps', campctrl.getCampaigns)
 app.post('/camp/create',campctrl.createCampaign)
 app.put('/camp/edit-name',campctrl.editCampaignName)
 app.put('/camp/edit-room',campctrl.editRoomCode)
+app.delete('/camp/delete-camp/:id', campctrl.deleteCampaign)
 
 //Chat endpoints
 app.post('/api/updatemessages', chatctrl.updateMessages);
