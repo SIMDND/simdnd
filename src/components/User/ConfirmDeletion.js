@@ -21,8 +21,11 @@ class ConfirmDeletion extends Component{
 
     render(){
         return (
-            <div className={this.state.visible? "Modal": "invisible"}>
-
+            <div id='z' className={this.state.visible? "Modal-content": "invisible"}>
+                <h1>Are you sure you want to delete {this.props.selectedCampaign}?</h1>
+                <div className = 'Modal-buttons'>
+                <button>Confirm</button><button onClick={()=>this.setState({visible:!this.state.visible})}>Cancel</button>
+                </div>
             </div>
         )
     }

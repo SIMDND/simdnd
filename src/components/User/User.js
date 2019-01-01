@@ -80,8 +80,10 @@ class User extends Component{
                     <button onClick={()=>this.setState({displayCreateInputs:true})}>Create</button>
                     {this.displayCreateInputs()}
                     {this.displayEdit()}
-                    {this.displayAreYouSure()}
-                    <ConfirmDeletion visible={false}></ConfirmDeletion>
+                    
+                    
+                <ConfirmDeletion visible={this.state.displayAreYouSure} selectedCampaign={this.state.selectedCampaign}></ConfirmDeletion>
+                        
                         </div>
                 </div>
             
