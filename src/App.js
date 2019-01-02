@@ -78,7 +78,7 @@ class App extends Component {
         <img src={Logo} alt="logo"/>
       </Link>
         <div className="User-info">
-        {!this.state.userName && !this.state.userEmail? <h1 onClick={this.toggleLogin}>Login</h1>:<Link className="User-name" to="/user/:username">
+        {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/${this.state.userName}`}>
             <h1>{this.state.userName}</h1>
           </Link>}
           {!this.state.userName && !this.state.userEmail? null:
@@ -89,7 +89,7 @@ class App extends Component {
         <Switch > 
           <Route exact path = '/' render = {(props) =><About {...props} userName={this.state.userName} userEmail={this.state.userEmail}toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin} bungle="bungle"/> }></Route>
           <Route exact path = '/game' component = {Game}/>
-          <Route exact path = '/user/:username' component = {User}/>
+          <Route exact path = '/user/:username' render = {(props) =><User {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
         </Switch>
       </div>
       </div>

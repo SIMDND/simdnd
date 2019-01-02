@@ -6,7 +6,6 @@ import './About.css'
 class About extends Component{
     constructor(props){
         super(props);
-
         this.state = {
             userName: this.props.userName,
             userEmail: this.props.userEmail,
@@ -22,16 +21,11 @@ class About extends Component{
         }
     }
 
-    getAllPositionsICanMoveTo(height,width,x,y,spaces){
-        let arr = [];
-        const getSpaces = (h,w,xcoor,ycoor,numspaces)=>{
-            if (numspaces === 0){
-
-            }else{
-                
-            }
-        }
+    async componentDidMount(){
+        
     }
+
+    
 
     render(){
         return (

@@ -6,4 +6,4 @@ character_image TEXT,
 character_speed INTEGER,
 is_player BOOLEAN,
 is_npc BOOLEAN
-)
+);

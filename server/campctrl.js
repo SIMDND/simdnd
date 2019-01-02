@@ -1,23 +1,50 @@
 module.exports = {
-async updateMessages(req,res,next){
-    let {campaign_id,messagesArray} = req.body;
-    let db = req.app.get('db');
-    await db.chat.delete_messages([campaign_id]);
-    for (let i = 0; i < messagesArray.length; i++){
-        db.chat.update_messages([campaign_id,i,messagesArray[i].sender,messagesArray[i].message])
-    }
-    res.sendStatus(200);
-},
-async getMessages(req,res,next){
-    let {campaign_id} = req.params;
-    let db = req.app.get('db');
-    let a = await db.chat.get_messages([campaign_id]);
-    let b = [];
-    a.forEach((element,index,arr)=>{
-        b[element.index] = {sender:element.sender,message:element.message};
-    })
-    setTimeout(()=>{
-        res.status(200).send(b);
-    },500)
-}
+    async getCampaigns(req,res){
+        console.log(req.session)
+        const {user_email} = req.session.user
+        let [allCamps] = await db.campaign.get_campaigns([user_email])
+        res.status(200).send(allCamps)
+    },
+    async createCampaign(req,res){
+        console.log(req.body)
+        const {campName, roomCode} = req.body
+        console.log(req.session)
+        const {user_email} = req.session.user
+        let db = req.app.get('db');
+        console.log(db.campaign)
+        let createdCamp = await db.campaign.create_campaign([userEmail, campName, roomCode])
+        console.log(createdCamp)
+        let [allCamps] = await db.campaign.get_campaigns([user_email])
+        res.status(200).send(allCamps)
+    },
+    async editCampaignName(req,res){
+        console.log(req.body)
+        const {campName, newCampName} = req.body
+        const {user_email} = req.session.user
+        let db = req.app.get('db');
+        console.log(db.campaign)
+        let newCampName = await db.campaign.update_campaign([newCampName,user_email, campName])
+        let [allCamps] = await db.campaign.get_campaigns([user_email])
+        res.status(200).send(allCamps)
+    },
+    async editRoomCode(req,res){
+        console.log(req.body)
+        const {campName, newRoomCode} = req.body
+        const {user_email} = req.session.user
+        let db = req.app.get('db');
+        console.log(db.campaign)
+        let newRoomCode = await db.campaign.update_room_code([newRoomCode, user_email, campName])
+        let [allCamps] = await db.campaign.get_campaigns([user_email])
+        res.status(200).send(allCamps)
+    },
+    async deleteCampaign(req,res){
+        console.log(req.params)
+        const {campName} = req.params
+        const {user_email} = req.session.user
+        let db = req.app.get('db');
+        console.log(db.campaign)
+        let deleteCamp = await db.campaign.delete_campaign([user_email, campName])
+        let [allCamps] = await db.campaign.get_campaigns([user_email])
+        res.status(200).send(allCamps)
+    },
 }
