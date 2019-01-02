@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import NPC from './Pieces/NPC'
 import Player from './Pieces/Player'
 import Baggai from './Pieces/Baggai'
+import io from 'socket.io-client';
+
+const socket = io.connect('http://localhost:3674');
 // import Map from './Map'
 // const SELECTED_COLOR = 'green';
 // const MOVABLE_COLOR = 'palegreen';
@@ -15,6 +18,11 @@ class Board extends Component{
       selectedCharacter:null,
       Tokens: [{x:5, y:0, id:0, type:'Baggai'}, {x:2, y:0, id:1, type:'NPC'}, {x:3, y:2, id:2, type:'Player'}]
     }
+
+    socket.on('show-me-a-moose',data=>{
+      this.setState({Tokens:data.Tokens});
+      console.log('Tokens,',this.state.Tokens)
+    })
     
   }
     static propTypes = {
@@ -30,7 +38,8 @@ class Board extends Component{
         cols: 0
       };
     componentDidMount(){
-
+      socket.emit('join-room',{room:this.props.room})
+      
     }
 
 squareSelect = ({x, y}) => {
@@ -43,8 +52,11 @@ if(this.state.selectedCharacter !== null){
     }
     return newCharacter;
   })
-  this.setState({ Tokens:characters});
+  this.setState({ Tokens:characters}, () => {
+    this.makeAMove();
 
+  });
+ 
 }else{
   console.log('We have not selected a character yet!')
 }
@@ -63,6 +75,13 @@ characterSelect(id, e){
 //   }
 //   return result;
 // }
+
+makeAMove(){
+  console.log('makeAMove has run')
+  socket.emit('make-a-move',{room:this.props.room,Tokens:this.state.Tokens})
+  
+}
+
     
     render(){
 

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import Board from './Map/Board'
-
+import Chat from './Chat.js'
 
 class Dnd extends Component{
     constructor(props){
         super(props);
 
         this.state = {
+
 
         }
     }
@@ -15,7 +16,7 @@ class Dnd extends Component{
     render(){
         return (
             <div>
-                <Board>
+                <Board room='heyjude'>
                 
                 </Board>
             </div>
