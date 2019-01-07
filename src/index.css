@@ -49,6 +49,13 @@ button:disabled{
 
 input {
   border-radius: 5px;
-  color: rgb(180,180,180)
 }
 
+.confirm-prompt{
+  height:70vh;
+  width:35vw;
+  background-color:yellow;
+  position:fixed;
+  bottom:15vh;
+  right: 32.5vw;
+}
