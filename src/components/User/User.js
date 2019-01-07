@@ -1,23 +1,41 @@
 import React, {Component} from 'react';
 import ConfirmDeletion from './ConfirmDeletion.js';
+import CreateCampaign from './CreateCampaign.js';
 import './User.css'
+import axios from 'axios';
 
 class User extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            campaigns:['','aajjjjjjjjjjjj','hy','mt'],
+            campaigns:[],
             selectedCampaign:'',
             desiredCampaign:'',
             desiredRoomCode:'',
             displayCreateInputs:false,
             edit:false,
-            displayAreYouSure:false
+            areYouSure:false,
+            createCampaign:false
         }
+        this.toggleAreYouSure = this.toggleAreYouSure.bind(this)
+        this.toggleCreateCampaign = this.toggleCreateCampaign.bind(this)
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        let a = await axios.get('/camp/get-camps');
+        let b = a.data;
+        b.unshift('');
+        this.setState({campaigns:b})
+    }
+
+    async componentDidUpdate(prevProps,prevState){
+        if (this.state.campaigns != prevState.campaigns){
+            let a = await axios.get('/camp/get-camps');
+            let b = a.data;
+            b.unshift('');
+            this.setState({campaigns:b})
+        }
     }
 
     displayCampaigns(){
@@ -50,18 +68,23 @@ class User extends Component{
         }
     }
 
-    displayAreYouSure(){
-        if (this.state.displayAreYouSure){
-            return (
-                <div className='are-you-sure'>
-    
-                </div>
-            )
-        }
-    }
+    toggleAreYouSure(){
+        this.setState({
+          areYouSure: !this.state.areYouSure
+        })
+      }
+
+      toggleCreateCampaign(){
+          this.setState({
+              createCampaign: !this.state.createCampaign
+          })
+      }
 
     render(){
         return (
+            <div>
+            <ConfirmDeletion selectedCampaign={this.state.selectedCampaign} visible={this.state.areYouSure} toggleConfirmDeletion={this.toggleAreYouSure}/>
+            <CreateCampaign visible={this.state.createCampaign} toggleCreateCampaign={this.toggleCreateCampaign}/>
             <div className='user'>
                 {!this.props.userName?
                 <div>
@@ -70,24 +93,23 @@ class User extends Component{
                 <div>
                     <h2>Select a Campaign</h2>
                     <div className='campaign-options'>
-                        <button onClick={()=>this.setState({edit:this.state.selectedCampaign?true:false})}>Edit</button>
-                        <button onClick={()=>this.setState({displayAreYouSure:this.state.selectedCampaign?true:false})}>Delete</button>
+                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.setState({edit:this.state.selectedCampaign?true:false})}>Edit</button>
+                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.toggleAreYouSure()}>Delete</button>
                     </div>
                     <select name='selectedCampaign' onChange={e=>this.handleChange(e)}>
-                        {this.state.campaigns.map((element,index,arr)=>{return <option value={element}>{element}</option>})}
+                        {this.state.campaigns.map((element,index,arr)=>{return <option value={element.campaign_name}>{element.campaign_name}</option>})}
                     </select>
                     <div>
-                    <button onClick={()=>this.setState({displayCreateInputs:true})}>Create</button>
+                    <button onClick={()=>this.toggleCreateCampaign()}>Create</button>
                     {this.displayCreateInputs()}
                     {this.displayEdit()}
                     
-                    
-                <ConfirmDeletion visible={this.state.displayAreYouSure} selectedCampaign={this.state.selectedCampaign}></ConfirmDeletion>
                         
                         </div>
                 </div>
             
             }
+            </div>
             </div>
         )
     }

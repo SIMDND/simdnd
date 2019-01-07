@@ -31,7 +31,7 @@ app.get('/camp/get-camps', campctrl.getCampaigns)
 app.post('/camp/create',campctrl.createCampaign)
 app.put('/camp/edit-name',campctrl.editCampaignName)
 app.put('/camp/edit-room',campctrl.editRoomCode)
-app.delete('/camp/delete-camp/:id', campctrl.deleteCampaign)
+app.delete('/camp/delete-camp/:campName', campctrl.deleteCampaign)
 
 //Chat endpoints
 app.post('/api/updatemessages', chatctrl.updateMessages);

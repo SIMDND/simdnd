@@ -7,7 +7,8 @@ import store from './dux/store.js';
 import About from './components/About/About.js';
 import Login from './components/Login-Register/Login';
 import Register from './components/Login-Register/Register';
-import Join from './components/Login-Register/Join'
+import Join from './components/Login-Register/Join';
+import ConfirmDeletion from './components/User/ConfirmDeletion.js';
 import Game from './components/Game/Dnd';
 import User from './components/User/User.js';
 import './App.css';
@@ -64,6 +65,7 @@ class App extends Component {
     })
   }
 
+  
   render() {
     return (
       <Provider store={store}>
