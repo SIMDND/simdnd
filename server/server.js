@@ -52,10 +52,11 @@ massive(CONNECTION_STRING).then(db=> {
 io.on("connection", socket => {
 
     socket.on("join-room",data=>{
+        console.log('joinedRoom', data.room)
         socket.join(data.room);
         io.to(data.room);
     })
-
+//chat-box socket stuff
     socket.on("new-message-send", data=>{
         io.to(data.room).emit('update-messages-array',{messagesArray:data.messagesArray})
     })
@@ -66,6 +67,11 @@ io.on("connection", socket => {
 
     socket.on('this-is-what-chat-box-should-say',data=>{
         io.to(data.room).emit('what-should-chat-box-say',{messagesArray:data.messagesArray})
+    })
+
+    socket.on('make-a-move',data=>{
+        console.log('move made');
+        io.to(data.room).emit('show-me-a-moose',{Tokens:data.Tokens})
     })
 
 })
