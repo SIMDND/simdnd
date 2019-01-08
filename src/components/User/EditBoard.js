@@ -3,14 +3,15 @@ import axios from 'axios';
 import { connect } from "react-redux";
 import '../Login-Register/Login-Register.css';
 
-class EditCampaign extends Component{
+class EditBoard extends Component{
     constructor(props){
         super(props);
 
         this.state = {
             visible:this.props.visible,
-            name:this.props.selectedCampaign,
-            roomCode:this.props.selectedRoomCode
+            name:this.props.name,
+            columns:this.props.columns,
+            rows:this.props.rows
         }
         this.toggle=this.toggle.bind(this);
         this.toggle2=this.toggle2.bind(this);
@@ -38,19 +39,19 @@ class EditCampaign extends Component{
         this.setState({
             visible: !this.state.visible
         })
-        this.props.toggleEditCampaign();
+        this.props.toggleEditBoard();
     }
 
     toggle2(){
         this.setState({
             visible: !this.state.visible
         })
-        this.props.toggleEditCampaign();
-        this.setState({name:this.props.selectedCampaign,roomCode:this.props.selectedRoomCode});
+        this.props.toggleEditBoard();
+        this.setState({name:this.props.name,columns:this.props.columns,rows:this.props.rows});
     }
 
     async handleEditRoom(){
-        let b = await axios.put('/camp/edit-name-room',{campName:this.props.selectedCampaign, newCampName:this.state.name, newRoomCode:this.state.roomCode});
+        //let b = 
         this.toggle();
     }
 
@@ -59,9 +60,14 @@ class EditCampaign extends Component{
           name: e.target.value
         });
       }
-      handleRoomCodeChange(e) {
+      handleRowsChange(e) {
         this.setState({
-          roomCode: e.target.value.toUpperCase()
+          rows: e.target.value
+        });
+      }
+      handleColumnsChange(e) {
+        this.setState({
+          columns: e.target.value
         });
       }
 
@@ -73,7 +79,8 @@ class EditCampaign extends Component{
                     <div className="Input-form">
                         <div className="Input-labels">
                         <h3>Name:</h3>
-                        <h3>Room Code:</h3>
+                        <h3>Rows:</h3>
+                        <h3>Columns</h3>
                         </div>
                         <div className="Form-inputs">
                         <input
@@ -85,11 +92,17 @@ class EditCampaign extends Component{
                             }}
                         />
                         <input
-                            value={this.state.roomCode}
-                            style={{textTransform:'uppercase'}}
-                            type="room code"
+                            value={this.state.rows}
+                            type="number"
                             onChange={e => {
-                              this.handleRoomCodeChange(e);
+                              this.handleRowsChange(e);
+                            }}
+                        />
+                        <input
+                            value={this.state.columns}
+                            type="number"
+                            onChange={e => {
+                              this.handleColumnsChange(e);
                             }}
                         />
                         </div>
@@ -104,4 +117,4 @@ class EditCampaign extends Component{
     }
 }
 
-export default connect(null)(EditCampaign);
+export default connect(null)(EditBoard);
