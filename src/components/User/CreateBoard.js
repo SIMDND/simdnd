@@ -3,21 +3,22 @@ import axios from 'axios';
 import { connect } from "react-redux";
 import '../Login-Register/Login-Register.css';
 
-class EditCampaign extends Component{
+class CreateBoard extends Component{
     constructor(props){
         super(props);
 
         this.state = {
-            visible:this.props.visible,
-            name:this.props.selectedCampaign,
-            roomCode:this.props.selectedRoomCode
+            name:'',
+            columns:5,
+            rows:5,
+            visible:this.props.visible
         }
         this.toggle=this.toggle.bind(this);
-        this.toggle2=this.toggle2.bind(this);
     }
 
 
     componentDidMount(){
+
     }
 
     componentDidUpdate(prevProps){
@@ -26,32 +27,13 @@ class EditCampaign extends Component{
             visible: this.props.visible
           })
         }
-        if (this.props.selectedCampaign !== prevProps.selectedCampaign){
-            this.setState({name:this.props.selectedCampaign});
-        }
-        if (this.props.selectedRoomCode !== prevProps.selectedRoomCode){
-            this.setState({roomCode:this.props.selectedRoomCode})
-        }
       }
 
       toggle(){
         this.setState({
             visible: !this.state.visible
         })
-        this.props.toggleEditCampaign();
-    }
-
-    toggle2(){
-        this.setState({
-            visible: !this.state.visible
-        })
-        this.props.toggleEditCampaign();
-        this.setState({name:this.props.selectedCampaign,roomCode:this.props.selectedRoomCode});
-    }
-
-    async handleEditRoom(){
-        let b = await axios.put('/camp/edit-name-room',{campName:this.props.selectedCampaign, newCampName:this.state.name, newRoomCode:this.state.roomCode});
-        this.toggle();
+        this.props.toggleCreateBoard();
     }
 
     handleNameChange(e) {
@@ -59,25 +41,35 @@ class EditCampaign extends Component{
           name: e.target.value
         });
       }
-      handleRoomCodeChange(e) {
+      handleColumnsChange(e) {
         this.setState({
-          roomCode: e.target.value.toUpperCase()
+            columns:e.target.value
         });
       }
+      handleRowsChange(e){
+          this.setState({
+              rows:e.target.value
+          })
+      }
+
+    async handleCreateBoard(){
+        //let a 
+        this.toggle();
+    }
 
     render(){
         return (
             <div className={this.state.visible? "Modal": "invisible"}>
                 <div className="Modal-content">
-                    <h1>Edit {this.props.selectedCampaign}?</h1>
+                    <h1>Create a Board</h1>
                     <div className="Input-form">
                         <div className="Input-labels">
                         <h3>Name:</h3>
-                        <h3>Room Code:</h3>
+                        <h3>Columns:</h3>
+                        <h3>Rows:</h3>
                         </div>
                         <div className="Form-inputs">
                         <input
-                            value={this.state.name}
                             type="text"
                             name="name"
                             onChange={e => {
@@ -85,18 +77,23 @@ class EditCampaign extends Component{
                             }}
                         />
                         <input
-                            value={this.state.roomCode}
-                            style={{textTransform:'uppercase'}}
-                            type="room code"
+                            type="number"
                             onChange={e => {
-                              this.handleRoomCodeChange(e);
+                              this.handleColumnsChange(e);
+                            }}
+                        />
+                        <input
+                            type="number"
+                            name="name"
+                            onChange={e => {
+                              this.handleRowsChange(e);
                             }}
                         />
                         </div>
-                    </div>     
+                    </div>          
                     <div className="Modal-buttons">
-                        <button onClick={this.toggle2}>Cancel</button>
-                        <button onClick={() => this.handleEditRoom()}>Edit</button>
+                        <button onClick={this.toggle}>Cancel</button>
+                        <button onClick={() => this.handleCreateBoard()}>Create</button>
                     </div>
                 </div>
             </div>
@@ -104,4 +101,4 @@ class EditCampaign extends Component{
     }
 }
 
-export default connect(null)(EditCampaign);
+export default connect(null)(CreateBoard);

@@ -2,6 +2,14 @@ h2,h3{
     color: azure;
 }
 
+.wow{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    width:500px;
+}
+
 .campaign-options{
     width:200px;
     display: flex;
@@ -32,4 +40,39 @@ width:100vw;
 z-index:3;
 display:flex;
 flex-direction:column;
+}
+
+.space{
+    height:100px;
+    width:100px;
+}
+
+.default-board-title{
+    height:50px;
+    width:500px;
+    display:flex;
+    
+}
+
+.default-title{
+    height:50px;
+    width:246px;
+}
+
+.default-name{
+    height:50px;
+    width:246px;
+}
+
+.huh{
+    text-align:right;
+}
+
+.uh{
+    text-align:left;
+}
+
+.thin{
+    height:50px;
+    width:8px;
 }
