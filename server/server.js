@@ -55,7 +55,7 @@ io.on("connection", socket => {
     socket.on("join-room",data=>{
         console.log('joinedRoom', data.room)
         socket.join(data.room);
-        io.to(data.room);
+     
     })
 //chat-box socket stuff
     socket.on("new-message-send", data=>{
@@ -71,8 +71,8 @@ io.on("connection", socket => {
     })
 
     socket.on('make-a-move',data=>{
-        console.log('move made');
-        io.to(data.room).emit('show-me-a-moose',{Tokens:data.Tokens})
+        console.log('move made', data.room);
+        io.sockets.in(data.room).emit('show-me-a-moose',{Tokens:data.Tokens})
     })
 
 })
