@@ -21,7 +21,7 @@ module.exports = {
     async deleteBoard(req,res){
         const db = req.app.get('db')
         const {user_email} = req.session.user
-        const {campaign_id,board_name} = req.body;
+        const {campaign_id,board_name} = req.params;
         await db.board.delete_board([campaign_id,board_name]);
         let a = await db.board.get_boards([campaign_id])
         res.status(200).send(a);
