@@ -44,6 +44,7 @@ app.get('/board/get-boards/:campaign_id',boardctrl.getBoards);
 app.post('/board/create',boardctrl.createBoard);
 app.put('/board/edit',boardctrl.editBoard);
 app.delete('/board/delete',boardctrl.deleteBoard);
+app.put('/board/make-starting',boardctrl.makeStarting)
 
 const io = socket(
     app.listen(SERVER_PORT, () => {

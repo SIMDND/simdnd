@@ -25,6 +25,7 @@ class User extends Component{
             createCampaign:false,
             editCampaign:false,
             createBoard:false,
+            editBoard:false,
             selectedBoard:'',
             defaultBoard:''
         }
@@ -107,6 +108,7 @@ class User extends Component{
             <CreateCampaign visible={this.state.createCampaign} toggleCreateCampaign={this.toggleCreateCampaign}/>
             <EditCampaign visible = {this.state.editCampaign} toggleEditCampaign={this.toggleEditCampaign} selectedCampaign={this.state.selectedCampaign} selectedRoomCode={this.state.selectedRoomCode}/>
             <CreateBoard visible={this.state.createBoard} toggle={this.toggle} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
+            <EditBoard visible={this.state.editBoard} toggle={this.toggle}  selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
             <div className='user'>
                 {!this.props.userName?
                 <div>
@@ -133,7 +135,7 @@ class User extends Component{
                     </div>
                     
                     <div className='campaign-options'>
-                        <button disabled={this.state.selectedBoard===''}>Edit</button>
+                        <button disabled={this.state.selectedBoard===''} name="editBoard" onClick={this.toggle}>Edit</button>
                         <button disabled={this.state.selectedBoard===''}>Delete</button>
                     </div>
                     <select name='selectedBoard' disabled={this.state.selectedCampaign===''} onChange={e=>this.handleChange(e)}>
