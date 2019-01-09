@@ -1,0 +1,1 @@
+delete from board_info where campaign_id = $1 and board_name = $2

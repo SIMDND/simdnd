@@ -1,0 +1,1 @@
+update board_info set board_name = $1, board_col = $2, board_row = $3 where campaign_id = $4 and board_name = $5

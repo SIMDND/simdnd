@@ -1,0 +1,1 @@
+select * from board_info where campaign_id = $1
