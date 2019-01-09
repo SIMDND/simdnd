@@ -85,19 +85,12 @@ class User extends Component{
           })
       }
 
-    //   toggleCreateBoard(){
-    //       setTimeout(()=>{
-    //           this.setState({
-    //               createBoard: !this.state.createBoard
-    //           })
-    //       },200)
-    //   }
-
     toggle = (e) =>{
         this.setState({
           [e.target.name]: !this.state[e.target.name]
         })
       }
+
 
     render(){
         console.log('campaigns',this.state.campaigns)
@@ -115,14 +108,14 @@ class User extends Component{
                 <div className='wow'>
                     <h2>Select a Campaign</h2>
                     <div className='campaign-options'>
-                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.toggleEditCampaign()}>Edit</button>
-                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.toggleAreYouSure()}>Delete</button>
+                        <button disabled={this.state.selectedCampaign===''} name="editCampaign"onClick={()=>this.toggleEditCampaign()}>Edit</button>
+                        <button disabled={this.state.selectedCampaign===''} name="areYouSure" onClick={()=>this.toggleAreYouSure()}>Delete</button>
                     </div>
                     <select name='selectedCampaign' onChange={e=>this.handleChange(e)}>
                         <option hidden>Choose Campaign</option>
-                        {this.state.campaigns.map((element,index,arr)=>{return <option value={element.campaign_name}>{element.campaign_name}</option>})}
+                        {this.state.campaigns.map((element,index,arr)=>{return <option key={index} value={element.campaign_name}>{element.campaign_name}</option>})}
                     </select>
-                    <button onClick={()=>this.toggleCreateCampaign()}>Create</button>
+                    <button  name="createCampaign"onClick={()=>this.toggleCreateCampaign()}>Create</button>
 
                     <div className= 'space'></div>
                         
@@ -138,7 +131,7 @@ class User extends Component{
                     </div>
                     <select name='selectedBoard' disabled={this.state.selectedCampaign===''} onChange={e=>this.handleChange(e)}>
                         <option hidden>Choose Board</option>
-                        {this.state.boards.map((element,index,arr)=>{return <option value={element.board_name}>{element.board_name}</option>})}
+                        {this.state.boards.map((element,index,arr)=>{return <option key={index} value={element.board_name}>{element.board_name}</option>})}
                     </select>
                     <div className='campaign-options'>
                         <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard}>Default</button>
