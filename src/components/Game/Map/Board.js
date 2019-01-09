@@ -5,6 +5,7 @@ import NPC from './Pieces/NPC'
 import Player from './Pieces/Player'
 import Baggai from './Pieces/Baggai'
 import io from 'socket.io-client';
+import './Board.css'
 
 const socket = io.connect('http://localhost:3674');
 // import Map from './Map'
@@ -18,8 +19,9 @@ class Board extends Component{
       selectedCharacter:null,
       Tokens: [{x:5, y:0, id:0, type:'Baggai'}, {x:2, y:0, id:1, type:'NPC'}, {x:3, y:2, id:2, type:'Player'}]
     }
-
+  
     socket.on('show-me-a-moose',data=>{
+      console.log(this.props.room)
       this.setState({Tokens:data.Tokens});
       console.log('Tokens,',this.state.Tokens)
     })
@@ -106,7 +108,7 @@ let characters=this.state.Tokens.map(character => {
 
 
         return (
-     <Grid rows={12} cols={12} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
+     <Grid primaryColor="blue" rows={12} cols={12} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
     {characters}
      </Grid>
         )
