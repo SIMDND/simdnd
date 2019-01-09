@@ -14,15 +14,17 @@ class Baggai extends Component {
     return (
       <g transform="scale(.022222,.022222)" onClick={this.props.onClick}>
        
-  <circle cx="22.5" cy="22.5" r="20" fill="#026585"/>  
+  <circle cx="22.5" cy="22.5" r="20" fill="#850202"/>  
        <defs>
         <clipPath id="circleView">
-        <circle cx="22.5" cy="22.5" r="17" fill="#850202"/>         
+        <circle cy='22.5' cx = '22.5' r="18" fill="#850202"/>         
         </clipPath>
     </defs>
-<image width="100" height="50"
+<image width="35" height='35'
  href={this.props.join.url}
-  clip-path="url(#circleView)" />
+  clipPath="url(#circleView)" 
+  x='50%' y='50%'
+  />
 
 
 
