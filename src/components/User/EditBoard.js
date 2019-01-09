@@ -13,8 +13,6 @@ class EditBoard extends Component{
             columns:this.props.columns,
             rows:this.props.rows
         }
-        this.toggle=this.toggle.bind(this);
-        this.toggle2=this.toggle2.bind(this);
     }
 
 
@@ -35,24 +33,9 @@ class EditBoard extends Component{
         }
       }
 
-      toggle(){
-        this.setState({
-            visible: !this.state.visible
-        })
-        this.props.toggleEditBoard();
-    }
-
-    toggle2(){
-        this.setState({
-            visible: !this.state.visible
-        })
-        this.props.toggleEditBoard();
-        this.setState({name:this.props.name,columns:this.props.columns,rows:this.props.rows});
-    }
 
     async handleEditRoom(){
-        //let b = 
-        this.toggle();
+        await axios.put('/board/edit', {new_board_name:this.state.name,board_col:this.state.columns,board_row:this.state.rows,campaign_id:this.props.selectedCampaignId,board_name:this.props.selectedBoard})
     }
 
     handleNameChange(e) {
@@ -108,8 +91,8 @@ class EditBoard extends Component{
                         </div>
                     </div>     
                     <div className="Modal-buttons">
-                        <button onClick={this.toggle2}>Cancel</button>
-                        <button onClick={() => this.handleEditRoom()}>Edit</button>
+                        <button name="editBoard" onClick={this.props.toggle}>Cancel</button>
+                        <button name="editBoard" onClick={(e) => {this.handleEditRoom(); this.props.toggle(e)}}>Edit</button>
                     </div>
                 </div>
             </div>

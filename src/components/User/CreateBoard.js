@@ -36,8 +36,7 @@ class CreateBoard extends Component{
       }
 
     async handleCreateBoard(){
-        //let a 
-        console.log('yup')
+        let a = await axios.post('/board/create',{campaign_id:this.props.selectedCampaignId,board_name:this.state.name,board_row:this.state.rows,board_col:this.state.columns})
     }
 
     render(){
