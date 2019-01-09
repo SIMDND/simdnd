@@ -7,6 +7,7 @@ const app = express();
 const authctrl = require('./authctrl.js');
 const chatctrl = require('./chatctrl.js');
 const campctrl = require('./campctrl.js');
+const boardctrl = require('./boardctrl.js');
 const session = require('express-session');
 app.use(express.json());
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
@@ -37,6 +38,12 @@ app.delete('/camp/delete-camp/:campName', campctrl.deleteCampaign)
 //Chat endpoints
 app.post('/api/updatemessages', chatctrl.updateMessages);
 app.get('/api/getmessages/:campaign_id',chatctrl.getMessages)
+
+//board endpoints
+app.get('/board/get-boards/:campaign_id',boardctrl.getBoards);
+app.post('/board/create',boardctrl.createBoard);
+app.put('/board/edit',boardctrl.editBoard);
+app.delete('/board/delete',boardctrl.deleteBoard);
 
 const io = socket(
     app.listen(SERVER_PORT, () => {

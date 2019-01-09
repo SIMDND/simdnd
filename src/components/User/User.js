@@ -17,18 +17,21 @@ class User extends Component{
             boards:[],
             selectedCampaign:'',
             selectedRoomCode:'',
+            selectedCampaignId:'',
             desiredCampaign:'',
             desiredRoomCode:'',
             edit:false,
             areYouSure:false,
             createCampaign:false,
             editCampaign:false,
+            createBoard:false,
             selectedBoard:'',
             defaultBoard:''
         }
         this.toggleAreYouSure = this.toggleAreYouSure.bind(this)
         this.toggleCreateCampaign = this.toggleCreateCampaign.bind(this)
         this.toggleEditCampaign = this.toggleEditCampaign.bind(this)
+        this.toggleCreateBoard = this.toggleCreateBoard.bind(this)
     }
 
     async componentDidMount(){
@@ -41,12 +44,20 @@ class User extends Component{
             let a = await axios.get('/camp/get-camps');
             this.setState({campaigns:a.data})
         }
+        if (this.state.selectedCampaign !== prevState.selectedCampaign){
+            setTimeout(async ()=>{
+                let b = await axios.get(`/board/get-boards/${this.state.selectedCampaignId}`);
+                this.setState({boards:b.data})
+                console.log('boards:',this.state.boards)
+            },200)
+        }
     }
 
     handleChange(e){
         this.setState({[e.target.name]:e.target.value})
         setTimeout(()=>{
             this.setState({selectedRoomCode:!this.state.selectedCampaign?'':this.state.campaigns[this.state.campaigns.findIndex((element,index,arr)=>element.campaign_name===this.state.selectedCampaign)].room_code})
+            this.setState({selectedCampaignId:!this.state.selectedCampaign?'':this.state.campaigns[this.state.campaigns.findIndex((element,index,arr)=>element.campaign_name===this.state.selectedCampaign)].campaign_id})
         },200)
     }
 
@@ -68,12 +79,23 @@ class User extends Component{
           })
       }
 
+      toggleCreateBoard(){
+          setTimeout(()=>{
+              this.setState({
+                  createBoard: !this.state.createBoard
+              })
+          },200)
+      }
+
+      
+
     render(){
         return (
             <div>
             <ConfirmDeletion selectedCampaign={this.state.selectedCampaign} visible={this.state.areYouSure} toggleConfirmDeletion={this.toggleAreYouSure}/>
             <CreateCampaign visible={this.state.createCampaign} toggleCreateCampaign={this.toggleCreateCampaign}/>
             <EditCampaign visible = {this.state.editCampaign} toggleEditCampaign={this.toggleEditCampaign} selectedCampaign={this.state.selectedCampaign} selectedRoomCode={this.state.selectedRoomCode}/>
+            <CreateBoard style={this.state.createBoard?null:{visible:'hidden'}} toggleCreateBoard={this.toggleCreateBoard} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
             <div className='user'>
                 {!this.props.userName?
                 <div>
@@ -103,13 +125,13 @@ class User extends Component{
                         <button disabled={this.state.selectedBoard===''}>Edit</button>
                         <button disabled={this.state.selectedBoard===''}>Delete</button>
                     </div>
-                    <select disabled={this.state.selectedCampaign===''} name='boards' onChange={e=>this.handleChange(e)}>
+                    <select name='selectedBoard' disabled={this.state.selectedCampaign===''} onChange={e=>this.handleChange(e)}>
                         <option hidden>Choose Board</option>
-                        {this.state.campaigns.map((element,index,arr)=>{return <option value={element.campaign_name}>{element.campaign_name}</option>})}
+                        {this.state.boards.map((element,index,arr)=>{return <option value={element.board_name}>{element.board_name}</option>})}
                     </select>
                     <div className='campaign-options'>
                         <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard}>Default</button>
-                        <button disabled={this.state.selectedCampaign===''}>Create</button>
+                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.toggleCreateBoard()}>Create</button>
                     </div>
                     <button disabled={this.state.selectedCampaign===''}>Start</button>
                 </div>

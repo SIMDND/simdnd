@@ -48,7 +48,6 @@ class CreateCampaign extends Component{
 
     async handleCreateCampaign(){
         let a = await axios.post('/camp/create',{campName:this.state.name,roomCode:this.state.roomCode});
-        console.log(a.data);
         this.toggle();
     }
 

@@ -10,30 +10,13 @@ class CreateBoard extends Component{
         this.state = {
             name:'',
             columns:5,
-            rows:5,
-            visible:this.props.visible
+            rows:5
         }
-        this.toggle=this.toggle.bind(this);
     }
 
 
     componentDidMount(){
 
-    }
-
-    componentDidUpdate(prevProps){
-        if(this.props.visible !== prevProps.visible){
-          this.setState({
-            visible: this.props.visible
-          })
-        }
-      }
-
-      toggle(){
-        this.setState({
-            visible: !this.state.visible
-        })
-        this.props.toggleCreateBoard();
     }
 
     handleNameChange(e) {
@@ -92,7 +75,7 @@ class CreateBoard extends Component{
                         </div>
                     </div>          
                     <div className="Modal-buttons">
-                        <button onClick={this.toggle}>Cancel</button>
+                        <button onClick={this.props.toggleCreateBoard()}>Cancel</button>
                         <button onClick={() => this.handleCreateBoard()}>Create</button>
                     </div>
                 </div>
