@@ -5,6 +5,7 @@ import NPC from './Pieces/NPC'
 import Player from './Pieces/Player'
 import Baggai from './Pieces/Baggai'
 import io from 'socket.io-client';
+import './Board.css'
 
 const socket = io.connect('http://localhost:3674');
 // import Map from './Map'
@@ -106,7 +107,7 @@ let characters=this.state.Tokens.map(character => {
 
 
         return (
-     <Grid rows={12} cols={12} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
+     <Grid primaryColor="blue" rows={12} cols={12} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
     {characters}
      </Grid>
         )
