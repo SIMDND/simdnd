@@ -37,12 +37,12 @@ class CreateBoard extends Component{
 
     async handleCreateBoard(){
         //let a 
-        this.toggle();
+        console.log('yup')
     }
 
     render(){
         return (
-            <div className={this.state.visible? "Modal": "invisible"}>
+            <div className={this.props.visible? "Modal": "invisible"}>
                 <div className="Modal-content">
                     <h1>Create a Board</h1>
                     <div className="Input-form">
@@ -75,8 +75,8 @@ class CreateBoard extends Component{
                         </div>
                     </div>          
                     <div className="Modal-buttons">
-                        <button onClick={this.props.toggleCreateBoard()}>Cancel</button>
-                        <button onClick={() => this.handleCreateBoard()}>Create</button>
+                        <button name="createBoard" onClick={this.props.toggle}>Cancel</button>
+                        <button name="createBoard" onClick={(e) => {this.handleCreateBoard(); this.props.toggle(e)}}>Create</button>
                     </div>
                 </div>
             </div>

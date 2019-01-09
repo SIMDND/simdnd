@@ -28,6 +28,7 @@ class About extends Component{
     
 
     render(){
+        console.log(this.state.userEmail)
         return (
             
             <div className='about'>
