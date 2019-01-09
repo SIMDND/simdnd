@@ -12,6 +12,7 @@ import ConfirmDeletion from './components/User/ConfirmDeletion.js';
 import Game from './components/Game/Dnd';
 import User from './components/User/User.js';
 import './App.css';
+import {toggle} from './logic/logic_matt';
 
 class App extends Component {
   constructor(props){
@@ -48,12 +49,14 @@ class App extends Component {
   }
 
   toggleLogin(){
+    console.log(toggle())
     this.setState({
       loginModal: !this.state.loginModal
     })
   }
 
   toggleRegister(){
+    console.log()
     this.setState({
       registerModal: !this.state.registerModal
     })
