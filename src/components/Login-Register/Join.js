@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import axios from "axios";
 import "./Login-Register.css";
 import { connect } from "react-redux";
-import { updateUser } from "../../dux/reducer";
+import { updateJoin } from "../../dux/reducer";
+import { Link } from 'react-router-dom'
 
 class Join extends Component {
   constructor(props) {
@@ -11,6 +11,7 @@ class Join extends Component {
     this.state = {
       playerName: "",
       roomCode: "",
+      url:'',
       visible: this.props.visible,
     };
     this.toggle=this.toggle.bind(this)
@@ -29,21 +30,23 @@ class Join extends Component {
           visible: !this.state.visible
       })
       this.props.toggleJoin()
+      
   }
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  async handleSubmit() {
-    let data = { ...this.state };
-    let res = await axios.post(`/auth/login`, data);
-    console.log(res.data);
-    if (res.data.status === "loggedIn") {
-      this.props.updateUser(res.data);
+   handleSubmit() {
+    let data = { playerName:this.state.playerName,
+      roomCode:this.state.roomCode,
+      url:this.state.url,
+    };
+      this.props.updateJoin(data);
+      
       this.toggle()
     }
-  }
+  
 
   render() {
     return (
@@ -66,16 +69,26 @@ class Join extends Component {
                 name="roomCode"
                 onChange={this.handleChange}
               />
+                  <input
+                type="text"
+                name="url"
+                onChange={this.handleChange}
+              />
             </div>
           </div>
           <div className="Modal-buttons">
           <button onClick={this.toggle}>Cancel</button>
-            <button
+      
+          <button  disabled={!this.state.playerName || !this.state.roomCode}> 
+          <Link to='game'
               disabled={!this.state.playerName || !this.state.roomCode}
-              onClick={this.toggle}
+              onClick={() =>this.handleSubmit()}
             >
+           
               Join
+              </Link>
             </button>
+          
           </div>
         </div>
       </div>
@@ -85,5 +98,5 @@ class Join extends Component {
 
 export default connect(
   null,
-  { updateUser }
+  { updateJoin }
 )(Join);
