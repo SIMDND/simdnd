@@ -31,7 +31,6 @@ class User extends Component{
         this.toggleAreYouSure = this.toggleAreYouSure.bind(this)
         this.toggleCreateCampaign = this.toggleCreateCampaign.bind(this)
         this.toggleEditCampaign = this.toggleEditCampaign.bind(this)
-        this.toggleCreateBoard = this.toggleCreateBoard.bind(this)
     }
 
     async componentDidMount(){
@@ -41,15 +40,22 @@ class User extends Component{
 
     async componentDidUpdate(prevProps,prevState){
         if (this.state.campaigns != prevState.campaigns){
-            let a = await axios.get('/camp/get-camps');
-            this.setState({campaigns:a.data})
-        }
+            setTimeout(
+                async () =>{
+                    let a = await axios.get('/camp/get-camps');
+                    this.setState({campaigns:a.data})
+
+                }, 1000)
+
+            }
         if (this.state.selectedCampaign !== prevState.selectedCampaign){
-            setTimeout(async ()=>{
+            setTimeout(
+                async ()=>{
                 let b = await axios.get(`/board/get-boards/${this.state.selectedCampaignId}`);
                 this.setState({boards:b.data})
                 console.log('boards:',this.state.boards)
-            },200)
+            }
+            ,200)
         }
     }
 
@@ -79,23 +85,28 @@ class User extends Component{
           })
       }
 
-      toggleCreateBoard(){
-          setTimeout(()=>{
-              this.setState({
-                  createBoard: !this.state.createBoard
-              })
-          },200)
+    //   toggleCreateBoard(){
+    //       setTimeout(()=>{
+    //           this.setState({
+    //               createBoard: !this.state.createBoard
+    //           })
+    //       },200)
+    //   }
+
+    toggle = (e) =>{
+        this.setState({
+          [e.target.name]: !this.state[e.target.name]
+        })
       }
 
-      
-
     render(){
+        console.log('campaigns',this.state.campaigns)
         return (
             <div>
             <ConfirmDeletion selectedCampaign={this.state.selectedCampaign} visible={this.state.areYouSure} toggleConfirmDeletion={this.toggleAreYouSure}/>
             <CreateCampaign visible={this.state.createCampaign} toggleCreateCampaign={this.toggleCreateCampaign}/>
             <EditCampaign visible = {this.state.editCampaign} toggleEditCampaign={this.toggleEditCampaign} selectedCampaign={this.state.selectedCampaign} selectedRoomCode={this.state.selectedRoomCode}/>
-            <CreateBoard style={this.state.createBoard?null:{visible:'hidden'}} toggleCreateBoard={this.toggleCreateBoard} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
+            <CreateBoard visible={this.state.createBoard} toggle={this.toggle} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
             <div className='user'>
                 {!this.props.userName?
                 <div>
@@ -131,7 +142,7 @@ class User extends Component{
                     </select>
                     <div className='campaign-options'>
                         <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard}>Default</button>
-                        <button disabled={this.state.selectedCampaign===''} onClick={()=>this.toggleCreateBoard()}>Create</button>
+                        <button disabled={this.state.selectedCampaign===''} name="createBoard" onClick={this.toggle}>Create</button>
                     </div>
                     <button disabled={this.state.selectedCampaign===''}>Start</button>
                 </div>
