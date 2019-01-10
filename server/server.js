@@ -8,6 +8,7 @@ const authctrl = require('./authctrl.js');
 const chatctrl = require('./chatctrl.js');
 const campctrl = require('./campctrl.js');
 const boardctrl = require('./boardctrl.js');
+const piecectrl = require('./piecectrl.js');
 const session = require('express-session');
 app.use(express.json());
 const {SERVER_PORT, CONNECTION_STRING, SESSION_SECRET} = process.env;
@@ -45,6 +46,12 @@ app.post('/board/create',boardctrl.createBoard);
 app.put('/board/edit',boardctrl.editBoard);
 app.delete('/board/delete/:campaign_id/:board_name',boardctrl.deleteBoard);
 app.put('/board/make-starting',boardctrl.makeStarting)
+
+//piece endpoints
+app.get('/piece/get-pieces/:campaign_id/:board_name',piecectrl.getPieces);
+app.post('piece/create',piecectrl.createPiece);
+app.put('/piece/edit',piecectrl.editPiece);
+app.delete('/piece/delete/:campaign_id/:board_name/:character_name',piecectrl.deletePiece);
 
 const io = socket(
     app.listen(SERVER_PORT, () => {

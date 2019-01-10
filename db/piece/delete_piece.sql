@@ -1,0 +1,1 @@
+delete from piece_map where campaign_id = $1 and board_name = $2 and character_name = $3;

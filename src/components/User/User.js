@@ -15,11 +15,11 @@ class User extends Component{
         this.state = {
             campaigns:[],
             boards:[],
+            pieces:[],
             selectedCampaign:'',
             selectedRoomCode:'',
             selectedCampaignId:'',
-            desiredCampaign:'',
-            desiredRoomCode:'',
+            selectedPiece:'',
             edit:false,
             areYouSure:false,
             createCampaign:false,
@@ -128,10 +128,11 @@ class User extends Component{
 
                     <div className= 'space'></div>
                         
+                        <h2>Select a Board</h2>
                     <div className='default-board-title'>
-                        <div className='default-title'><h2 className='huh'>Default Board:</h2></div>
+                        <div className='default-title'><h4 className='huh'>Default Board:</h4></div>
                         <div className='thin'></div>
-                        <div className='default-name'><h2 className='uh'>{this.state.defaultBoard===''?' No default yet':this.state.defaultBoard}</h2></div>
+                        <div className='default-name'><h4 className='uh'>{this.state.defaultBoard===''?' No default yet':this.state.defaultBoard}</h4></div>
                     </div>
                     
                     <div className='campaign-options'>
@@ -147,6 +148,19 @@ class User extends Component{
                         <button disabled={this.state.selectedCampaign===''} name="createBoard" onClick={this.toggle}>Create</button>
                     </div>
                     <button disabled={this.state.selectedCampaign===''}>Start</button>
+
+                    <div className= 'space'></div>
+
+                    <h2>Select a Piece</h2>
+                    <div className='campaign-options'>
+                        <button disabled={this.state.selectedCampaign==='' || this.state.selectedBoard===''} >Edit</button>
+                        <button disabled={this.state.selectedCampaign==='' || this.state.selectedBoard===''} >Delete</button>
+                    </div>
+                    <select name='selectedPiece' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard===''} onChange={e=>this.handleChange(e)}>
+                        <option hidden>Choose Piece</option>
+                        {this.state.pieces.map((element,index,arr)=>{return <option value={element.character_name}>{element.character_name}</option>})}
+                    </select>
+                    <button disabled={this.state.selectedBoard==='' || this.state.selectedCampaign===''}>Create</button>
                 </div>
             
             }
