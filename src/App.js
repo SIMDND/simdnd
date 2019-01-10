@@ -10,7 +10,9 @@ import Register from './components/Login-Register/Register';
 import Join from './components/Login-Register/Join';
 import ConfirmDeletion from './components/User/ConfirmDeletion.js';
 import Game from './components/Game/Dnd';
-import User from './components/User/User.js';
+import UserEdit from './components/User/UserEdit.js';
+import UserStartJoin from './components/User/UserStartJoin.js';
+import UserPieces from './components/User/UserPieces.js';
 import './App.css';
 import {toggle} from './logic/logic_matt';
 
@@ -83,7 +85,7 @@ class App extends Component {
         <img src={Logo} alt="logo"/>
       </Link>
         <div className="User-info">
-        {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/${this.state.userName}`}>
+        {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/edit/${this.state.userName}`}>
             <h1>{this.state.userName}</h1>
           </Link>}
           {!this.state.userName && !this.state.userEmail? null:
@@ -94,7 +96,9 @@ class App extends Component {
         <Switch > 
           <Route exact path = '/' render = {(props) =><About {...props} userName={this.state.userName} userEmail={this.state.userEmail}toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin} bungle="bungle"/> }></Route>
           <Route exact path = '/game' component = {Game}/>
-          <Route exact path = '/user/:username' render = {(props) =><User {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
+          <Route exact path = '/user/edit/:username' render = {(props) =><UserEdit {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
+          <Route exact path = '/user/start-join/:username' render = {(props) =><UserStartJoin {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
+          <Route exact path = '/user/pieces/:username' render = {(props) =><UserPieces {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
         </Switch>
       </div>
       </div>
