@@ -2,12 +2,10 @@
 
 module.exports = {
     async getBoards(req,res){
-        console.log('inside getBoards with campaign_id:',req.params.campaign_id)
         const db = req.app.get('db')
         const {user_email} = req.session.user
         const {campaign_id} = req.params;
         let a = await db.board.get_boards([campaign_id]);
-        console.log(a);
         res.status(200).send(a);
     },
     async createBoard(req,res){
