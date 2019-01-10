@@ -25,6 +25,8 @@ class User extends Component{
             createCampaign:false,
             editCampaign:false,
             createBoard:false,
+            editBoard:false,
+            deleteBoard:false,
             selectedBoard:'',
             defaultBoard:''
         }
@@ -52,8 +54,8 @@ class User extends Component{
             setTimeout(
                 async ()=>{
                 let b = await axios.get(`/board/get-boards/${this.state.selectedCampaignId}`);
-                this.setState({boards:b.data})
-                console.log('boards:',this.state.boards)
+                let c = b.data.findIndex((element)=>element.starting===true);
+                this.setState({boards:b.data,defaultBoard:c!==-1?b.data[c].board_name:''})
             }
             ,200)
         }
@@ -100,6 +102,8 @@ class User extends Component{
             <CreateCampaign visible={this.state.createCampaign} toggleCreateCampaign={this.toggleCreateCampaign}/>
             <EditCampaign visible = {this.state.editCampaign} toggleEditCampaign={this.toggleEditCampaign} selectedCampaign={this.state.selectedCampaign} selectedRoomCode={this.state.selectedRoomCode}/>
             <CreateBoard visible={this.state.createBoard} toggle={this.toggle} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
+            <EditBoard visible={this.state.editBoard} toggle={this.toggle}  selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
+            <ConfirmDeleteBoard visible={this.state.deleteBoard} toggle={this.toggle} selectedBoard={this.state.selectedBoard} selectedCampaignId={this.state.selectedCampaignId}/>
             <div className='user'>
                 {!this.props.userName?
                 <div>
@@ -122,19 +126,19 @@ class User extends Component{
                     <div className='default-board-title'>
                         <div className='default-title'><h2 className='huh'>Default Board:</h2></div>
                         <div className='thin'></div>
-                        <div className='default-name'><h2 className='uh'>{this.state.selectedBoard===''?' No default yet':this.state.selectedBoard}</h2></div>
+                        <div className='default-name'><h2 className='uh'>{this.state.defaultBoard===''?' No default yet':this.state.defaultBoard}</h2></div>
                     </div>
                     
                     <div className='campaign-options'>
-                        <button disabled={this.state.selectedBoard===''}>Edit</button>
-                        <button disabled={this.state.selectedBoard===''}>Delete</button>
+                        <button disabled={this.state.selectedBoard===''} name="editBoard" onClick={this.toggle}>Edit</button>
+                        <button disabled={this.state.selectedBoard===''} name='deleteBoard' onClick={this.toggle}>Delete</button>
                     </div>
                     <select name='selectedBoard' disabled={this.state.selectedCampaign===''} onChange={e=>this.handleChange(e)}>
                         <option hidden>Choose Board</option>
                         {this.state.boards.map((element,index,arr)=>{return <option key={index} value={element.board_name}>{element.board_name}</option>})}
                     </select>
                     <div className='campaign-options'>
-                        <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard}>Default</button>
+                        <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard} onClick={()=>this.makeDefaultBoard()}>Default</button>
                         <button disabled={this.state.selectedCampaign===''} name="createBoard" onClick={this.toggle}>Create</button>
                     </div>
                     <button disabled={this.state.selectedCampaign===''}>Start</button>

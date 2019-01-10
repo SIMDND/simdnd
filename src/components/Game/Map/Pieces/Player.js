@@ -20,9 +20,10 @@ class Player extends Component {
         <circle cx="22.5" cy="22.5" r="17" fill="#026585"/>         
         </clipPath>
     </defs>
-<image width="100" height="50"
+<image width="35" height="35"
  href={this.props.join.url}
-  clip-path="url(#circleView)" />
+  clip-path="url(#circleView)"
+  x='50%' y='50%' />
 
 
 
