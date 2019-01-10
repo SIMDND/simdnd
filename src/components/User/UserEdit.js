@@ -7,9 +7,10 @@ import CreateBoard from "./CreateBoard.js";
 import EditBoard from "./EditBoard.js";
 import ConfirmDeleteBoard from "./ConfirmDeleteBoard.js";
 import "./User.css";
+import NavigateUser from './NavigateUser.js';
 import axios from "axios";
 import { connect } from "react-redux";
-import { updateCampaignId, updateJoin } from "./../../dux/reducer";
+import { updateCampaignId, updateJoin } from "../../dux/reducer";
 
 class User extends Component {
   constructor(props) {
@@ -136,6 +137,7 @@ class User extends Component {
     console.log("campaigns", this.state.campaigns);
     return (
       <div>
+        <NavigateUser userName={this.props.userName}></NavigateUser>
         <ConfirmDeletion
           selectedCampaign={this.state.selectedCampaign}
           visible={this.state.areYouSure}

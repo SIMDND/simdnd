@@ -76,3 +76,29 @@ flex-direction:column;
     height:50px;
     width:8px;
 }
+
+.user-nav-bar{
+    display:flex;
+    position:fixed;
+    background-color:orange;
+    height:60px;
+    width:400px;
+    bottom:0;
+    right:0;
+}
+
+.nav-link{
+    height:60px;
+    width:150px;
+    background-color:purple;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
+}
+
+#aa{
+    border-left: 6px solid black;
+}
+
+#bb{
+    border-right: 6px solid black;
+}
