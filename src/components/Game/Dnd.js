@@ -25,7 +25,7 @@ class Dnd extends Component{
         let current = this.state.boards.filter(board => board.starting===true)
         return (
             <div>
-                <Board room={this.props.join.roomCode} rows={current.board_row} cols={current.board_col}>
+                <Board room={this.props.join.roomCode} rows={5} cols={5}>
                 
                 </Board>
             </div>
