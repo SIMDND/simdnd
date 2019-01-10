@@ -7,6 +7,9 @@ import EditBoard from './EditBoard.js';
 import ConfirmDeleteBoard from './ConfirmDeleteBoard.js';
 import './User.css'
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { updateCampaignId } from './../../dux/reducer'
+
 
 class User extends Component{
     constructor(props){
@@ -165,4 +168,4 @@ class User extends Component{
     }
 }
 
-export default User;
+export default connect(null, {updateCampaignId})(User);

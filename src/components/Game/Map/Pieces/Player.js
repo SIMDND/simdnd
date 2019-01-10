@@ -17,7 +17,7 @@ class Player extends Component {
   <circle cx="22.5" cy="22.5" r="20" fill="#026585"/>  
        <defs>
         <clipPath id="circleView">
-        <circle cx="22.5" cy="22.5" r="17" fill="#026585"/>         
+        <circle cx="22.5" cy="22.5" r="17" fill="#026585"/> 
         </clipPath>
     </defs>
 <image width="35" height="35"
