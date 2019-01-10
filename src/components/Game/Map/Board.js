@@ -108,7 +108,7 @@ let characters=this.state.Tokens.map(character => {
 
 
         return (
-     <Grid primaryColor="blue" rows={12} cols={12} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
+     <Grid primaryColor="blue" rows={this.props.rows} cols={this.props.cols} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
     {characters}
      </Grid>
         )

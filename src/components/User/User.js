@@ -7,6 +7,9 @@ import EditBoard from './EditBoard.js';
 import ConfirmDeleteBoard from './ConfirmDeleteBoard.js';
 import './User.css'
 import axios from 'axios';
+import { connect } from 'react-redux'
+import { updateCampaignId } from './../../dux/reducer'
+
 
 class User extends Component{
     constructor(props){
@@ -18,8 +21,6 @@ class User extends Component{
             selectedCampaign:'',
             selectedRoomCode:'',
             selectedCampaignId:'',
-            desiredCampaign:'',
-            desiredRoomCode:'',
             edit:false,
             areYouSure:false,
             createCampaign:false,
@@ -99,6 +100,10 @@ class User extends Component{
         })
       }
 
+      finishSelection(){
+          this.props.updateCampaignId(this.state.selectedCampaign);
+      }
+
     render(){
         console.log('campaigns',this.state.campaigns)
         return (
@@ -146,7 +151,9 @@ class User extends Component{
                         <button disabled={this.state.selectedBoard==='' || this.state.selectedBoard===this.state.defaultBoard} onClick={()=>this.makeDefaultBoard()}>Default</button>
                         <button disabled={this.state.selectedCampaign===''} name="createBoard" onClick={this.toggle}>Create</button>
                     </div>
-                    <button disabled={this.state.selectedCampaign===''}>Start</button>
+                    <button disabled={this.state.selectedCampaign===''} onClick={() => this.finishSelection()
+                    
+                    }>Start</button>
                 </div>
             
             }
@@ -156,4 +163,4 @@ class User extends Component{
     }
 }
 
-export default User;
+export default connect(null, {updateCampaignId})(User);
