@@ -85,6 +85,10 @@
   background: rgb(10, 10, 10);
   bottom: 0;
   overflow:hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .Logo img{
