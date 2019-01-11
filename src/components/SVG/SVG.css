@@ -1,0 +1,11 @@
+.disabled{
+    fill: rgb(40, 4, 4)
+}
+
+.enabled{
+    fill: rgb(97, 5, 5);
+}
+
+.enabled:active{
+    fill: #C80A0A;
+}

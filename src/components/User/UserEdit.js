@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ArrowUp from "../SVG/ArrowUp";
+import ArrowDown from "../SVG/ArrowDown";
 import { Link } from "react-router-dom";
 import ConfirmDeletion from "./ConfirmDeletion.js";
 import CreateCampaign from "./CreateCampaign.js";
@@ -7,7 +9,7 @@ import CreateBoard from "./CreateBoard.js";
 import EditBoard from "./EditBoard.js";
 import ConfirmDeleteBoard from "./ConfirmDeleteBoard.js";
 import "./User.css";
-import NavigateUser from './NavigateUser.js';
+import NavigateUser from "./NavigateUser.js";
 import axios from "axios";
 import { connect } from "react-redux";
 import { updateCampaignId, updateJoin } from "../../dux/reducer";
@@ -24,6 +26,8 @@ class User extends Component {
       selectedRoomCode: "",
       selectedCampaignId: "",
       selectedPiece: "",
+      boardCol: null,
+      boardRow: null,
       edit: false,
       areYouSure: false,
       createCampaign: false,
@@ -37,7 +41,7 @@ class User extends Component {
     this.toggleAreYouSure = this.toggleAreYouSure.bind(this);
     this.toggleCreateCampaign = this.toggleCreateCampaign.bind(this);
     this.toggleEditCampaign = this.toggleEditCampaign.bind(this);
-    this.startGame = this.startGame.bind(this)
+    this.startGame = this.startGame.bind(this);
   }
 
   async componentDidMount() {
@@ -121,10 +125,10 @@ class User extends Component {
     this.setState({ defaultBoard: a.data[b].board_name });
   }
 
-  startGame(){
-      this.props.updateCampaignId(this.state.selectedCampaignId)
-      let data = {roomCode: this.state.selectedRoomCode}
-      this.props.updateJoin(data)
+  startGame() {
+    this.props.updateCampaignId(this.state.selectedCampaignId);
+    let data = { roomCode: this.state.selectedRoomCode };
+    this.props.updateJoin(data);
   }
 
   toggle = e => {
@@ -134,65 +138,21 @@ class User extends Component {
   };
 
   render() {
-    console.log("campaigns", this.state.campaigns);
+    console.log("editCampaign", this.state.editCampaign);
     return (
-      <div>
-        <NavigateUser userName={this.props.userName}></NavigateUser>
+      <div className="user-container">
+        <span className="user-split-bar" />
+        <NavigateUser userName={this.props.userName} />
         <ConfirmDeletion
           selectedCampaign={this.state.selectedCampaign}
           visible={this.state.areYouSure}
           toggleConfirmDeletion={this.toggleAreYouSure}
         />
-        <CreateCampaign
-          visible={this.state.createCampaign}
-          toggleCreateCampaign={this.toggleCreateCampaign}
-        />
-        <EditCampaign
-          visible={this.state.editCampaign}
-          toggleEditCampaign={this.toggleEditCampaign}
-          selectedCampaign={this.state.selectedCampaign}
-          selectedRoomCode={this.state.selectedRoomCode}
-        />
-        <CreateBoard
-          visible={this.state.createBoard}
-          toggle={this.toggle}
-          selectedBoard={this.state.selectedBoard}
-          selectedCampaignId={this.state.selectedCampaignId}
-        />
-        <EditBoard
-          visible={this.state.editBoard}
-          toggle={this.toggle}
-          selectedBoard={this.state.selectedBoard}
-          selectedCampaignId={this.state.selectedCampaignId}
-        />
-        <ConfirmDeleteBoard
-          visible={this.state.deleteBoard}
-          toggle={this.toggle}
-          selectedBoard={this.state.selectedBoard}
-          selectedCampaignId={this.state.selectedCampaignId}
-        />
-        <div className="user">
-          {!this.props.userName ? (
-            <div>You are not logged in.</div>
-          ) : (
-            <div className="wow">
-              <h2>Select a Campaign</h2>
-              <div className="campaign-options">
-                <button
-                  disabled={this.state.selectedCampaign === ""}
-                  name="editCampaign"
-                  onClick={() => this.toggleEditCampaign()}
-                >
-                  Edit
-                </button>
-                <button
-                  disabled={this.state.selectedCampaign === ""}
-                  name="areYouSure"
-                  onClick={() => this.toggleAreYouSure()}
-                >
-                  Delete
-                </button>
-              </div>
+
+        <div className="user-menu">
+          <div className="menu-options">
+            <h2>Campaigns</h2>
+            <div className="menu-select">
               <select
                 name="selectedCampaign"
                 onChange={e => this.handleChange(e)}
@@ -206,46 +166,76 @@ class User extends Component {
                   );
                 })}
               </select>
-              <button
-                name="createCampaign"
-                onClick={() => this.toggleCreateCampaign()}
-              >
-                Create
-              </button>
-
-              <div className="space" />
-
-              <h2>Select a Board</h2>
-              <div className="default-board-title">
-                <div className="default-title">
-                  <h4 className="huh">Default Board:</h4>
-                </div>
-                <div className="thin" />
-                <div className="default-name">
-                  <h4 className="uh">
-                    {this.state.defaultBoard === ""
-                      ? " No default yet"
-                      : this.state.defaultBoard}
-                  </h4>
-                </div>
-              </div>
-
-              <div className="campaign-options">
+              <div className="menu-buttons">
+                <button name="createCampaign" onClick={this.toggle}>
+                  Create
+                </button>
                 <button
-                  disabled={this.state.selectedBoard === ""}
-                  name="editBoard"
+                  disabled={!this.state.selectedCampaign}
+                  name="editCampaign"
                   onClick={this.toggle}
                 >
                   Edit
                 </button>
                 <button
-                  disabled={this.state.selectedBoard === ""}
-                  name="deleteBoard"
+                  disabled={!this.state.selectedCampaign}
+                  name="deleteCampaign"
                   onClick={this.toggle}
                 >
                   Delete
                 </button>
               </div>
+            </div>
+            <div className="menu-edit-delete">
+              <input
+                disabled={
+                  !this.state.editCampaign && !this.state.createCampaign
+                }
+                placeholder={
+                  !this.state.editCampaign && !this.state.createCampaign
+                    ? "Edit or Create a Campaign"
+                    : this.state.selectedCampaign
+                }
+              />
+              <input
+                disabled={
+                  !this.state.editCampaign && !this.state.createCampaign
+                }
+                placeholder={
+                  !this.state.editCampaign && !this.state.createCampaign
+                    ? "Edit or Create a Campaign"
+                    : this.state.selectedRoomCode
+                }
+              />
+              <div className="menu-buttons">
+                <button
+                  disabled={
+                    !this.state.editCampaign && !this.state.createCampaign
+                  }
+                  onClick={() =>
+                    this.setState({
+                      editCampaign: false,
+                      createCampaign: false
+                    })
+                  }
+                >
+                  Cancel
+                </button>
+                <button
+                  disabled={
+                    !this.state.editCampaign && !this.state.createCampaign
+                  }
+                >
+                  Confirm
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="user-menu">
+          <div className="menu-options">
+            <h2>Boards</h2>
+            <div className="menu-select">
               <select
                 name="selectedBoard"
                 disabled={this.state.selectedCampaign === ""}
@@ -260,82 +250,79 @@ class User extends Component {
                   );
                 })}
               </select>
-              <div className="campaign-options">
-                <button
-                  disabled={
-                    this.state.selectedBoard === "" ||
-                    this.state.selectedBoard === this.state.defaultBoard
-                  }
-                  onClick={() => this.makeDefaultBoard()}
-                >
-                  Default
-                </button>
-                <button
-                  disabled={this.state.selectedCampaign === ""}
-                  name="createBoard"
-                  onClick={this.toggle}
-                >
+              <div className="menu-buttons">
+                <button name="createBoard" onClick={this.toggle}>
                   Create
                 </button>
-              </div>
-              <Link to="/game">
                 <button
-                  onClick={this.startGame}
-                  disabled={this.state.selectedCampaign === ""}
-                >
-                  Start
-                </button>
-              </Link>
-
-              <div className="space" />
-
-              <h2>Select a Piece</h2>
-              <div className="campaign-options">
-                <button
-                  disabled={
-                    this.state.selectedCampaign === "" ||
-                    this.state.selectedBoard === ""
-                  }
+                  name="editBoard"
+                  onClick={this.toggle}
+                  disabled={!this.state.selectedBoard}
                 >
                   Edit
                 </button>
+                <button disabled={!this.state.selectedBoard}>Delete</button>
+              </div>
+            </div>
+            <div className="menu-edit-delete">
+              <input
+                disabled={!this.state.editBoard && !this.state.createBoard}
+                placeholder={
+                  !this.state.editBoard && !this.state.createBoard
+                    ? "Edit or Create a board"
+                    : this.state.selectedBoard
+                }
+              />
+
+              {this.state.editBoard || this.state.createBoard ? (
+                <div className="col-row-select">
+                  <h2 style={{ color: "rgb(200,200,200)" }}>0</h2>
+                  <div className="arrow-container">
+                    <ArrowUp phil="enabled" />
+                    <ArrowDown phil="enabled" />
+                  </div>
+                  <h2 style={{ color: "rgb(200,200,200)" }}>0</h2>
+                  <div className="arrow-container">
+                    <ArrowUp phil="enabled"/>
+                    <ArrowDown phil="enabled" />
+                  </div>
+                </div>
+              ) : (
+                <div className="col-row-select">
+                  <h2 style={{ color: "rgb(10,10,10)" }}>0</h2>
+                  <div className="arrow-container">
+                    <ArrowUp phil="disabled" />
+                    <ArrowDown phil="disabled" />
+                  </div>
+                  <h2 style={{ color: "rgb(10,10,10)" }}>0</h2>
+                  <div className="arrow-container">
+                    <ArrowUp phil="disabled" />
+                    <ArrowDown phil="disabled" />
+                  </div>
+                </div>
+              )}
+              <div className="menu-buttons">
                 <button
-                  disabled={
-                    this.state.selectedCampaign === "" ||
-                    this.state.selectedBoard === ""
-                  }
+                  disabled={!this.state.editBoard && !this.state.createBoard}
+                  onClick={()=> this.setState({editBoard: false, createBoard: false})}
                 >
-                  Delete
+                  Cancel
+                </button>
+                <button
+                  disabled={!this.state.editBoard && !this.state.createBoard}
+                >
+                  Confirm
                 </button>
               </div>
-              <select
-                name="selectedPiece"
-                disabled={
-                  this.state.selectedCampaign === "" ||
-                  this.state.selectedBoard === ""
-                }
-                onChange={e => this.handleChange(e)}
-              >
-                <option hidden>Choose Piece</option>
-                {this.state.pieces.map((element, index, arr) => {
-                  return (
-                    <option value={element.character_name}>
-                      {element.character_name}
-                    </option>
-                  );
-                })}
-              </select>
-              <button
-                disabled={
-                  this.state.selectedBoard === "" ||
-                  this.state.selectedCampaign === ""
-                }
-              >
-                Create
-              </button>
             </div>
-          )}
+          </div>
         </div>
+        <ConfirmDeleteBoard
+          visible={this.state.deleteBoard}
+          toggle={this.toggle}
+          selectedBoard={this.state.selectedBoard}
+          selectedCampaignId={this.state.selectedCampaignId}
+        />
       </div>
     );
   }
