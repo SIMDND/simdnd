@@ -102,3 +102,170 @@ flex-direction:column;
 #bb{
     border-right: 6px solid black;
 }
+
+.nn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.wide-screen{
+    height:650px;
+    width:1400px;
+    display:flex;
+}
+
+.board-and-campaign-portion{
+    height:650px;
+    width:700px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.eeeee{
+    color:white;
+    position:relative;
+    bottom:77px;
+}
+
+.pieces-portion{
+    height:650px;
+    width:700px;
+    display:flex;
+    align-items:center;
+    flex-direction:column;
+}
+
+.bigger-square-inside-board-and-campaign-portion{
+    height:400px;
+    width:400px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    position:relative;
+    bottom:50px;
+}
+
+.eeeef{
+    color:white;
+}
+
+.make-room{
+    height:10px;
+    width:20px;
+}
+
+.section-for-selecting-campaign{
+    height:100px;
+    width:200px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    border: 3px solid white;
+}
+
+.section-for-selecting-board{
+    height:100px;
+    width:200px;
+    position:relative;
+    bottom:100px;
+    flex-direction:column;
+    align-items:center;
+    border: 3px solid white;
+}
+
+.selector-thing{
+    height:50px;
+    width:150px;
+    position:relative;
+    bottom:15px;
+}
+
+.selector-thingy{
+    height:30px;
+    width:150px;
+    position:relative;
+    bottom:15px;
+}
+
+.lllk{
+    position:relative;
+    bottom:10px;
+}
+
+.option-stuffs{
+    height:40px;
+    width:400px;
+    display:flex;
+    justify-content:space-between;
+}
+
+.holder-of-piece-image{
+    height:150px;
+    width:150px;
+    border:3px solid white;
+}
+
+.box-for-displaying-piece-characteristics{
+    height:200px;
+    width:400px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+
+}
+
+.to-list-each-characteristic{
+    height:200px;
+    width:200px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    align-items:flex-end;
+    position:relative;
+    right:3px;
+}
+
+.to-show-and-allow-to-alter-each-characteristic{
+    height:200px;
+    width:200px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+.ttgtg{
+    height:30px;
+    width:100px;
+}
+
+#ttgtg{
+    display:flex;
+    justify-content:flex-end;
+}
+
+.ggtgt{
+    display:flex;
+    text-align:center;
+    position:relative;
+    bottom:15px;
+    color:white;
+}
+
+.gtgtt{
+    position:relative;
+    bottom:18px;
+    
+}
+
+.me-me-i-select{
+    width:120px;
+    height:24px;
+}
+
+.me-me-i-type{
+    width:100px;
+}
