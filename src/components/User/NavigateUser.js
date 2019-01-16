@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import './User.css';
 
 class NavigateUser extends Component{
@@ -22,15 +22,15 @@ class NavigateUser extends Component{
     render(){
         return(
             <div className='user-nav-bar'>
-                <Link to={`/user/edit/${this.props.userName}`} id='aa' className='nav-link'>
+                <NavLink to={`/user/edit/${this.props.userName}`}  className="nav-link" activeClassName="nav-select">
                     <h2>Edit</h2>
-                </Link>
-                <Link to={`/user/start-join/${this.props.userName}`} className='nav-link'>
-                    <h2>Start-Join</h2>
-                </Link>
-                <Link to={`/user/pieces/${this.props.userName}`} id='bb' className='nav-link'>
+                </NavLink>
+                <NavLink to={`/user/start-join/${this.props.userName}`} className= "nav-link" activeClassName="nav-select">
+                    <h2>Start/Join</h2>
+                </NavLink>
+                <NavLink to={`/user/pieces/${this.props.userName}`} className="nav-link" activeClassName="nav-select">
                     <h2>Pieces</h2>
-                </Link>
+                </NavLink>
             </div>
         )
     }

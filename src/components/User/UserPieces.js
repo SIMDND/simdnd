@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import NavigateUser from './NavigateUser.js'
+import './User.css'
 
 class UserPieces extends Component{
     constructor(props){
@@ -21,7 +22,7 @@ class UserPieces extends Component{
 
     render(){
         return(
-            <div>
+            <div className="user-container">
                 <NavigateUser userName={this.props.userName}></NavigateUser>
 
             </div>
