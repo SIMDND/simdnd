@@ -81,8 +81,8 @@ class App extends Component {
         <Join visible={this.state.joinModal} toggleJoin={this.toggleJoin}/>
       <div className="Header">
       <Link  className ="Logo" to="/">
-        <h1>Phat Dragon</h1>
         <img src={Logo} alt="logo"/>
+        <h1>Phat Dragon</h1>
       </Link>
         <div className="User-info">
         {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/edit/${this.state.userName}`}>

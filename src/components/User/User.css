@@ -11,9 +11,11 @@ h4 {
   justify-content: space-between;
   width: 80vw;
   height: 70vh;
-  border-radius: 10px;
+  border-radius: 10px 10px 10px 0px;
   display: flex;
   box-shadow: 5px 6px 4px black;
+  margin-bottom: 5%;
+  position: relative;
 }
 
 .user-container input{
@@ -26,7 +28,9 @@ h4 {
   height: 100%;
   width: 0px;
   border: 2px solid rgb(10, 10, 10);
-  left: 50%
+  left: 50%;
+  border-bottom: none;
+  border-top: none;
 }
 
 .user-menu{
@@ -74,16 +78,35 @@ h4 {
   justify-content: space-around;
 }
 
-.up-button{
-  width: 20px;
-  height: 20px;
-}
 
 .menu-buttons{
     display: flex;
     justify-content: space-between;
     padding-top: 5%;
     width: 75%;
+}
+
+.enabled-colrow-select{
+  color:rgb(200,200,200);
+  height: 30px;
+  width: 30px;
+  background: rgb(10, 10, 10);
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb(50,50,50);
+  border-radius: 5px;
+}
+
+.disabled-colrow-select{
+  color: rgb(30,30,30);
+  height: 30px;
+  width: 30px;
+  background: rgb(10, 10, 10);
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  border-radius: 5px;
 }
 
 .arrow-container{
@@ -93,26 +116,30 @@ h4 {
   align-items: center;
 }
 
-.select-arrow svg{
-  fill: teal;
-}
-
 .user-nav-bar {
-  display: flex;
-  position: fixed;
-  background-color: orange;
   height: 60px;
-  width: 400px;
-  bottom: 0;
-  right: 0;
+  width: 45%;
+  display: flex;
+  /* justify-content: space-around; */
+  align-items: center;
+  position: absolute;
+  background-color: rgb(20, 20, 20);
+  bottom: -60px;
+  left: 0;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 5px 6px 4px black, inset 0px 6px 4px black;
 }
 
-.nav-link {
-  height: 60px;
-  width: 150px;
-  background-color: purple;
-  border-left: 3px solid black;
-  border-right: 3px solid black;
+.nav-link{
+  height: 61px;
+  width: calc(100%/3);
+  margin: 0;
+}
+
+.nav-select{
+  background: rgb(20, 20, 20);
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0px 6px 4px black
 }
 
 #bb{
@@ -289,6 +316,3 @@ h4 {
   border-left: 6px solid black;
 }
 
-#bb {
-  border-right: 6px solid black;
-}

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import './User.css'
 import NavigateUser from './NavigateUser.js'
+import './User.css'
 
 class UserPieces extends Component{
     constructor(props){
@@ -40,7 +41,7 @@ class UserPieces extends Component{
 
     render(){
         return(
-            <div className='nn'>
+            <div className="user-container">
                 <NavigateUser userName={this.props.userName}></NavigateUser>
                 <div className='wide-screen'>
                     <div className='board-and-campaign-portion'>

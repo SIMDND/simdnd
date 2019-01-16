@@ -26,22 +26,27 @@ class User extends Component {
       selectedRoomCode: "",
       selectedCampaignId: "",
       selectedPiece: "",
-      boardCol: null,
-      boardRow: null,
+      boardCol: 5,
+      boardRow: 5,
       edit: false,
       areYouSure: false,
       createCampaign: false,
       editCampaign: false,
       createBoard: false,
       editBoard: false,
-      deleteBoard: false,
+      areYouSure: false,
       selectedBoard: "",
-      defaultBoard: ""
+      defaultBoard: "",
+      name: "",
+      roomCode: ""
     };
     this.toggleAreYouSure = this.toggleAreYouSure.bind(this);
     this.toggleCreateCampaign = this.toggleCreateCampaign.bind(this);
     this.toggleEditCampaign = this.toggleEditCampaign.bind(this);
+    this.createCampaign = this.createCampaign.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.editCampaign = this.editCampaign.bind(this);
   }
 
   async componentDidMount() {
@@ -68,6 +73,36 @@ class User extends Component {
         });
       }, 200);
     }
+  }
+
+  async createCampaign() {
+    let res = await axios.post("/camp/create", {
+      campName: this.state.name,
+      roomCode: this.state.roomCode
+    });
+    this.setState({
+      campaigns: res.data
+    });
+  }
+
+  async editCampaign() {
+    let res = await axios.put("/camp/edit-name-room", {
+      campName: this.state.selectedCampaign,
+      newCampName: this.state.name,
+      newRoomCode: this.state.roomCode
+    });
+    this.setState({
+      campaigns: res.data
+    });
+  }
+
+  async createBoard() {
+    await axios.post("/board/create", {
+      campaign_id: this.state.selectedCampaignId,
+      board_name: this.state.name,
+      board_row: this.state.boardRow,
+      board_col: this.state.board_col
+    });
   }
 
   handleChange(e) {
@@ -138,11 +173,13 @@ class User extends Component {
   };
 
   render() {
-    console.log("editCampaign", this.state.editCampaign);
     return (
       <div className="user-container">
         <span className="user-split-bar" />
-        <NavigateUser userName={this.props.userName} />
+        <NavigateUser
+          userName={this.props.userName}
+          location={this.props.location}
+        />
         <ConfirmDeletion
           selectedCampaign={this.state.selectedCampaign}
           visible={this.state.areYouSure}
@@ -179,7 +216,7 @@ class User extends Component {
                 </button>
                 <button
                   disabled={!this.state.selectedCampaign}
-                  name="deleteCampaign"
+                  name="areYouSure"
                   onClick={this.toggle}
                 >
                   Delete
@@ -188,6 +225,8 @@ class User extends Component {
             </div>
             <div className="menu-edit-delete">
               <input
+                name="name"
+                onChange={this.handleChange}
                 disabled={
                   !this.state.editCampaign && !this.state.createCampaign
                 }
@@ -198,6 +237,8 @@ class User extends Component {
                 }
               />
               <input
+                name="roomCode"
+                onChange={this.handleChange}
                 disabled={
                   !this.state.editCampaign && !this.state.createCampaign
                 }
@@ -225,6 +266,15 @@ class User extends Component {
                   disabled={
                     !this.state.editCampaign && !this.state.createCampaign
                   }
+                  onClick={
+                    this.state.createCampaign
+                      ? () => {
+                          this.createCampaign();
+                        }
+                      : () => {
+                          this.editCampaign();
+                        }
+                  }
                 >
                   Confirm
                 </button>
@@ -251,7 +301,11 @@ class User extends Component {
                 })}
               </select>
               <div className="menu-buttons">
-                <button name="createBoard" onClick={this.toggle}>
+                <button
+                  disabled={!this.state.selectedCampaign}
+                  name="createBoard"
+                  onClick={this.toggle}
+                >
                   Create
                 </button>
                 <button
@@ -266,6 +320,7 @@ class User extends Component {
             </div>
             <div className="menu-edit-delete">
               <input
+                ref="input"
                 disabled={!this.state.editBoard && !this.state.createBoard}
                 placeholder={
                   !this.state.editBoard && !this.state.createBoard
@@ -276,25 +331,35 @@ class User extends Component {
 
               {this.state.editBoard || this.state.createBoard ? (
                 <div className="col-row-select">
-                  <h2 style={{ color: "rgb(200,200,200)" }}>0</h2>
+                  <h2
+                    className="enabled-colrow-select"
+                    style={{ color: "rgb(200,200,200)" }}
+                  >
+                    {this.state.boardCol}
+                  </h2>
                   <div className="arrow-container">
                     <ArrowUp phil="enabled" />
                     <ArrowDown phil="enabled" />
                   </div>
-                  <h2 style={{ color: "rgb(200,200,200)" }}>0</h2>
+                  <h2
+                    className="enabled-colrow-select"
+                    style={{ color: "rgb(200,200,200)" }}
+                  >
+                    {this.state.boardRow}
+                  </h2>
                   <div className="arrow-container">
-                    <ArrowUp phil="enabled"/>
+                    <ArrowUp phil="enabled" />
                     <ArrowDown phil="enabled" />
                   </div>
                 </div>
               ) : (
                 <div className="col-row-select">
-                  <h2 style={{ color: "rgb(10,10,10)" }}>0</h2>
+                  <h2 className="disabled-colrow-select">0</h2>
                   <div className="arrow-container">
                     <ArrowUp phil="disabled" />
                     <ArrowDown phil="disabled" />
                   </div>
-                  <h2 style={{ color: "rgb(10,10,10)" }}>0</h2>
+                  <h2 className="disabled-colrow-select">0</h2>
                   <div className="arrow-container">
                     <ArrowUp phil="disabled" />
                     <ArrowDown phil="disabled" />
@@ -304,7 +369,9 @@ class User extends Component {
               <div className="menu-buttons">
                 <button
                   disabled={!this.state.editBoard && !this.state.createBoard}
-                  onClick={()=> this.setState({editBoard: false, createBoard: false})}
+                  onClick={() => {
+                    this.setState({ editBoard: false, createBoard: false });
+                  }}
                 >
                   Cancel
                 </button>
