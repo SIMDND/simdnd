@@ -105,6 +105,30 @@ class User extends Component {
     });
   }
 
+  colUp = () =>{
+    this.setState({
+      boardCol: this.state.boardCol++
+    })
+  }
+
+  colDown = () => {
+    this.setState({
+      boardCol: this.state.boardCol--
+    })
+  }
+
+  rowUp = () =>{
+    this.setState({
+      boardRow: this.state.boardRow++
+    })
+  }
+
+  rowDown = () =>{
+    this.setState({
+      boardRow: this.state.boardRow--
+    })
+  }
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
     setTimeout(() => {
@@ -173,6 +197,7 @@ class User extends Component {
   };
 
   render() {
+    console.log(this.state.boardRow, this.state.boardCol)
     return (
       <div className="user-container">
         <span className="user-split-bar" />
@@ -320,7 +345,8 @@ class User extends Component {
             </div>
             <div className="menu-edit-delete">
               <input
-                ref="input"
+                name="name"
+                onChange={this.handleChange}
                 disabled={!this.state.editBoard && !this.state.createBoard}
                 placeholder={
                   !this.state.editBoard && !this.state.createBoard
@@ -338,8 +364,12 @@ class User extends Component {
                     {this.state.boardCol}
                   </h2>
                   <div className="arrow-container">
-                    <ArrowUp phil="enabled" />
-                    <ArrowDown phil="enabled" />
+                  <button  style={{background: "none", boxShadow: "none", width: "26px", height: "23px"}}onClick={this.colUp}>
+                    <ArrowUp  phil="enabled" />
+                  </button>
+                  <button  style={{background: "none", boxShadow: "none", width: "26px", height: "23px"}}onClick={this.colUp}>
+                    <ArrowDown onClick={this.colDown} phil="enabled" />
+                  </button>
                   </div>
                   <h2
                     className="enabled-colrow-select"
@@ -348,8 +378,8 @@ class User extends Component {
                     {this.state.boardRow}
                   </h2>
                   <div className="arrow-container">
-                    <ArrowUp phil="enabled" />
-                    <ArrowDown phil="enabled" />
+                    <ArrowUp onClick={this.rowUp} phil="enabled" />
+                    <ArrowDown onClick={this.rowDown} phil="enabled" />
                   </div>
                 </div>
               ) : (
