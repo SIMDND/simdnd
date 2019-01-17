@@ -193,6 +193,11 @@ h4 {
     border: 3px solid white;
 }
 
+#ppp{
+    position:relative;
+    bottom:20px;
+}
+
 .selector-thing{
     height:50px;
     width:150px;
@@ -217,12 +222,25 @@ h4 {
     width:400px;
     display:flex;
     justify-content:space-between;
+    position:relative;
+    bottom:20px;
 }
 
 .holder-of-piece-image{
     height:150px;
     width:150px;
     border:3px solid white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    bottom:20px;
+}
+
+.holder-of-piece-image img{
+    height:100%;
+    width:100%;
 }
 
 .box-for-displaying-piece-characteristics{
@@ -231,7 +249,15 @@ h4 {
     display:flex;
     justify-content:space-between;
     align-items:flex-end;
+    position:relative;
+    bottom:25px;
 
+}
+
+.knbg{
+    position:relative;
+    right:150px;
+    top:40px;
 }
 
 .to-list-each-characteristic{

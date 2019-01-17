@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import './User.css'
-import NavigateUser from './NavigateUser.js'
+import './User.css';
+import NavigateUser from './NavigateUser.js';
+import CreatePiece from './CreatePiece.js';
 
 class UserPieces extends Component{
     constructor(props){
@@ -15,8 +16,17 @@ class UserPieces extends Component{
             boards:[],
             selectedBoard:'',
             pieces:[],
-            selectedPiece:''
+            selectedPiece:'',
+            selectedImage:'',
+            createPiece:false,
+            name:'',
+            type:'',
+            x_coordinate:'',
+            y_coordinate:'',
+            image_url:'',
+            index:-1
         }
+        this.toggleCreatePiece = this.toggleCreatePiece.bind(this)
     }
 
     async componentDidMount(){
@@ -28,9 +38,14 @@ class UserPieces extends Component{
         if (this.state.selectedCampaign != prevState.selectedCampaign){
             let myIndex = this.state.campaigns.findIndex(element=>element.campaign_name===this.state.selectedCampaign);
             await this.setState({selectedCampaignId:this.state.campaigns[myIndex].campaign_id})
-            this.setState({boards:[],pieces:[],selectedBoard:'',selectedPiece:''})
+            this.setState({boards:[],pieces:[],selectedBoard:'',selectedPiece:'',selectedImage:'',index:-1})
             let a = await axios.get(`/board/get-boards/${this.state.selectedCampaignId}`)
             this.setState({boards:a.data})
+        }
+        if (this.state.selectedBoard != prevState.selectedBoard){
+            this.setState({pieces:[],selectedPiece:'',selectedImage:'',index:-1});
+            let a = await axios.get(`/piece/get-pieces/${this.state.selectedCampaignId}/${this.state.selectedBoard}`)
+            this.setState({pieces:a.data})
         }
     }
 
@@ -38,9 +53,29 @@ class UserPieces extends Component{
         this.setState({ [e.target.name]: e.target.value });
     }
 
+    toggleCreatePiece(){
+        this.setState({
+            createPiece:!this.state.createPiece
+        })
+    }
+
+    async edit(){
+        let a = await axios.put(`/piece/edit`,{campaign_id:this.state.selectedCampaignId,board_name:this.state.selectedBoard,character_name:this.state.pieces[this.state.index].character_name,new_character_name:this.state.name,piece_type:this.state.piece_type,x_coordinate:this.state.x_coordinate,y_coordinate:this.state.y_coordinate,image_url:this.state.image_url});
+        this.setState({selectedPiece:a.data[this.state.index].character_name});
+        console.log('this.state.selectedPiece:',this.state.selectedPiece)
+        this.setState({pieces:a.data});
+    }
+
     render(){
         return(
             <div className='nn'>
+            <CreatePiece
+                selectedCampaign={this.state.selectedCampaign}
+                selectedCampaignId={this.state.selectedCampaignId}
+                selectedBoard={this.state.selectedBoard}
+                visible={this.state.createPiece}
+                toggleCreatePiece={this.toggleCreatePiece}
+            />
                 <NavigateUser userName={this.props.userName}></NavigateUser>
                 <div className='wide-screen'>
                     <div className='board-and-campaign-portion'>
@@ -86,16 +121,28 @@ class UserPieces extends Component{
                     <div className='pieces-portion'>
                         <h1 className='eeeef'>Pieces</h1>
                         <div className = 'option-stuffs'>
-                            <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard===''}>Create</button>
-                            <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>Edit</button>
+                            <button onClick={()=>this.toggleCreatePiece()} disabled={this.state.selectedCampaign === '' || this.state.selectedBoard===''}>Create</button>
+                            <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard==='' || this.state.selectedPiece==='' || 
+                        this.state.index === -1 
+                        ||  (this.state.name === this.state.pieces[this.state.index].character_name 
+                            &&
+                        this.state.type === this.state.pieces[this.state.index].piece_type &&
+                        this.state.x_coordinate === this.state.pieces[this.state.index].x_coordinate &&
+                        this.state.y_coordinate === this.state.pieces[this.state.index].y_coordinate &&
+                        this.state.image_url === this.state.pieces[this.state.index].image_url)
+                        } onClick={()=>this.edit()}>Edit</button>
                             <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>Delete</button>
                         </div>
-                        <div className='section-for-selecting-campaign'>
+                        <div className='section-for-selecting-campaign' id='ppp'>
                                 <h2 className='lllk'>Piece</h2>
                                 <select
                                     name="selectedPiece"
                                     disabled={this.state.selectedCampaign === "" || this.state.selectedBoard===''}
-                                    onChange={e => this.handleChange(e)}
+                                    onChange={async e => {await this.handleChange(e); 
+                                    let index = this.state.pieces.findIndex(element=>element.character_name===this.state.selectedPiece);
+                                    this.setState({index,selectedImage:this.state.pieces[index].image_url})
+                                    this.setState({name:this.state.pieces[index].character_name,type:this.state.pieces[index].piece_type,x_coordinate:this.state.pieces[index].x_coordinate,y_coordinate:this.state.pieces[index].y_coordinate,image_url:this.state.pieces[index].image_url})
+                                    }}
                                     className='selector-thingy'
                                 >
                                     <option hidden>Choose Piece</option>
@@ -112,7 +159,7 @@ class UserPieces extends Component{
 
                             </div>
                         <div className='holder-of-piece-image'>
-
+                                    {this.state.selectedImage===''?null:<img src={this.state.selectedImage} alt/>}
                         </div>
                         <div className='make-room'>
 
@@ -127,12 +174,31 @@ class UserPieces extends Component{
                                     
                             </div>
                             <div className='to-show-and-allow-to-alter-each-characteristic'>
-                                <div className='ttgtg'><h5 className='gtgtt'><input className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><select className='me-me-i-select' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></select></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='name' onChange={e=>this.handleChange(e)} value={this.state.name} className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><select name='type' onChange={e=>this.handleChange(e)} value={this.state.type} className='me-me-i-select' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>
+                                    <option value='baggai'>Baggai</option>
+                                    <option value='npc'>NPC</option>
+                                </select></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='x_coordinate' onChange={e=>this.handleChange(e)} value={this.state.x_coordinate} className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='y_coordinate' onChange={e=>this.handleChange(e)} value={this.state.y_coordinate} className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='image_url' onChange={e=>this.handleChange(e)} value={this.state.image_url} className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
                             </div>
+                            <button disabled={
+                                this.state.index === -1 
+                                ||  (this.state.name === this.state.pieces[this.state.index].character_name 
+                                    &&
+                                this.state.type === this.state.pieces[this.state.index].piece_type &&
+                                this.state.x_coordinate === this.state.pieces[this.state.index].x_coordinate &&
+                                this.state.y_coordinate === this.state.pieces[this.state.index].y_coordinate &&
+                                this.state.image_url === this.state.pieces[this.state.index].image_url)
+                            } className='knbg' onClick={()=>{
+                                this.setState({name:this.state.pieces[this.state.index].character_name,
+                                    type:this.state.pieces[this.state.index].piece_type,
+                                    x_coordinate:this.state.pieces[this.state.index].x_coordinate,
+                                    y_coordinate:this.state.pieces[this.state.index].y_coordinate,
+                                    image_url:this.state.pieces[this.state.index].image_url
+                                })
+                            }}>Cancel</button>
                         </div>
                     </div>
                 </div>
