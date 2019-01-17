@@ -27,10 +27,6 @@ class CreatePiece extends Component{
         })
     }
 
-    async handleCreatePiece(){
-        let a = await axios.post('/piece/create',{campaign_id:this.props.selectedCampaignId,board_name:this.props.selectedBoard,character_name:this.state.character_name,piece_type:this.state.piece_type,x_coordinate:this.state.x_coordinate,y_coordinate:this.state.y_coordinate,image_url:this.state.image_url})
-    }
-
     render(){
         return (
             <div className={this.props.visible? "Modal": "invisible"}>
@@ -87,7 +83,7 @@ class CreatePiece extends Component{
                     </div>          
                     <div className="Modal-buttons">
                         <button name="createPiece" onClick={()=>this.props.toggleCreatePiece()}>Cancel</button>
-                        <button name="createPiece" onClick={() => {this.handleCreatePiece(); this.props.toggleCreatePiece()}}>Create</button>
+                        <button name="createPiece" onClick={() => {this.props.handleCreatePiece(this.props.selectedCampaignId,this.props.selectedBoard,this.state.character_name,this.state.piece_type,this.state.x_coordinate,this.state.y_coordinate,this.state.image_url); this.props.toggleCreatePiece()}}>Create</button>
                     </div>
                 </div>
             </div>

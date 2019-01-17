@@ -153,28 +153,25 @@ h4 {
 }
 
 .wide-screen{
-    height:650px;
+    height:575px;
     width:1400px;
     display:flex;
 }
 
 .board-and-campaign-portion{
-    height:650px;
+    height:575px;
     width:700px;
     display:flex;
-    justify-content:center;
     align-items:center;
     flex-direction:column;
 }
 
 .eeeee{
     color:white;
-    position:relative;
-    bottom:77px;
 }
 
 .pieces-portion{
-    height:650px;
+    height:575px;
     width:700px;
     display:flex;
     align-items:center;
@@ -188,8 +185,6 @@ h4 {
     flex-direction:column;
     align-items:center;
     justify-content:space-between;
-    position:relative;
-    bottom:50px;
 }
 
 .eeeef{
@@ -254,8 +249,8 @@ h4 {
 }
 
 .holder-of-piece-image{
-    height:150px;
-    width:150px;
+    height:100px;
+    width:100px;
     border:3px solid white;
     display:flex;
     flex-direction:column;
@@ -283,8 +278,7 @@ h4 {
 
 .knbg{
     position:relative;
-    right:150px;
-    top:40px;
+    bottom:15px;
 }
 
 .to-list-each-characteristic{
@@ -296,6 +290,7 @@ h4 {
     align-items:flex-end;
     position:relative;
     right:3px;
+    
 }
 
 .to-show-and-allow-to-alter-each-characteristic{
