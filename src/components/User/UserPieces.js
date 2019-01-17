@@ -27,6 +27,7 @@ class UserPieces extends Component{
             index:-1
         }
         this.toggleCreatePiece = this.toggleCreatePiece.bind(this)
+        this.handleCreatePiece = this.handleCreatePiece.bind(this)
     }
 
     async componentDidMount(){
@@ -62,7 +63,16 @@ class UserPieces extends Component{
     async edit(){
         let a = await axios.put(`/piece/edit`,{campaign_id:this.state.selectedCampaignId,board_name:this.state.selectedBoard,character_name:this.state.pieces[this.state.index].character_name,new_character_name:this.state.name,piece_type:this.state.piece_type,x_coordinate:this.state.x_coordinate,y_coordinate:this.state.y_coordinate,image_url:this.state.image_url});
         this.setState({selectedPiece:a.data[this.state.index].character_name});
-        console.log('this.state.selectedPiece:',this.state.selectedPiece)
+        this.setState({pieces:a.data});
+    }
+
+    async delete(){
+        let a = await axios.delete(`/piece/delete/${this.state.selectedCampaignId}/${this.state.selectedBoard}/${this.state.pieces[this.state.index].character_name}`)
+        this.setState({selectedPiece:'',index:-1,pieces:a.data});
+    }
+
+    async handleCreatePiece(campaign_id,board_name,character_name,piece_type,x_coordinate,y_coordinate,image_url){
+        let a = await axios.post('/piece/create',{campaign_id,board_name,character_name,piece_type,x_coordinate,y_coordinate,image_url})
         this.setState({pieces:a.data});
     }
 
@@ -75,6 +85,7 @@ class UserPieces extends Component{
                 selectedBoard={this.state.selectedBoard}
                 visible={this.state.createPiece}
                 toggleCreatePiece={this.toggleCreatePiece}
+                handleCreatePiece={this.handleCreatePiece}
             />
             <div className="user-container">
                 <NavigateUser userName={this.props.userName}></NavigateUser>
@@ -132,7 +143,7 @@ class UserPieces extends Component{
                         this.state.y_coordinate === this.state.pieces[this.state.index].y_coordinate &&
                         this.state.image_url === this.state.pieces[this.state.index].image_url)
                         } onClick={()=>this.edit()}>Edit</button>
-                            <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>Delete</button>
+                            <button disabled={this.state.selectedCampaign === '' || this.state.selectedBoard==='' || this.state.selectedPiece===''} onClick={()=>this.delete()}>Delete</button>
                         </div>
                         <div className='section-for-selecting-campaign' id='ppp'>
                                 <h2 className='lllk'>Piece</h2>
@@ -184,6 +195,7 @@ class UserPieces extends Component{
                                 <div className='ttgtg'><h5 className='gtgtt'><input name='y_coordinate' onChange={e=>this.handleChange(e)} value={this.state.y_coordinate} className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
                                 <div className='ttgtg'><h5 className='gtgtt'><input name='image_url' onChange={e=>this.handleChange(e)} value={this.state.image_url} className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
                             </div>
+                        </div>
                             <button disabled={
                                 this.state.index === -1 
                                 ||  (this.state.name === this.state.pieces[this.state.index].character_name 
@@ -200,7 +212,6 @@ class UserPieces extends Component{
                                     image_url:this.state.pieces[this.state.index].image_url
                                 })
                             }}>Cancel</button>
-                        </div>
                     </div>
                 </div>
             </div>
