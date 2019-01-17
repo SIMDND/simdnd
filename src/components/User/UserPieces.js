@@ -76,6 +76,7 @@ class UserPieces extends Component{
                 visible={this.state.createPiece}
                 toggleCreatePiece={this.toggleCreatePiece}
             />
+            <div className="user-container">
                 <NavigateUser userName={this.props.userName}></NavigateUser>
                 <div className='wide-screen'>
                     <div className='board-and-campaign-portion'>
@@ -202,6 +203,7 @@ class UserPieces extends Component{
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         )
     }

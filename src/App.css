@@ -4,8 +4,7 @@
 
 .Header{
   margin: 0;
-  background: rgb(80, 10, 10);
-  background: rgb(0, 0, 0);
+  background: rgb(20,20,20);
   height: 10vh;
   width: 100vw;
   display: flex;
@@ -92,7 +91,7 @@
 }
 
 .Logo img{
-  height: 70%;
+  height: 20%;
 }
 
 .invisible{
