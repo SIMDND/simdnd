@@ -49,7 +49,7 @@ app.put('/board/make-starting',boardctrl.makeStarting)
 
 //piece endpoints
 app.get('/piece/get-pieces/:campaign_id/:board_name',piecectrl.getPieces);
-app.post('piece/create',piecectrl.createPiece);
+app.post('/piece/create',piecectrl.createPiece);
 app.put('/piece/edit',piecectrl.editPiece);
 app.delete('/piece/delete/:campaign_id/:board_name/:character_name',piecectrl.deletePiece);
 
