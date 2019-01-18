@@ -5,6 +5,7 @@ import NPC from './Pieces/NPC'
 import Player from './Pieces/Player'
 import Baggai from './Pieces/Baggai'
 import io from 'socket.io-client';
+import axios from 'axios';
 import './Board.css'
 
 const socket = io.connect('http://localhost:3674');
@@ -17,7 +18,7 @@ class Board extends Component{
     this.state = {
 
       selectedCharacter:null,
-      Tokens: [{x:5, y:0, id:0, type:'Baggai'}, {x:2, y:0, id:1, type:'NPC'}, {x:3, y:2, id:2, type:'Player'}]
+      Tokens:  [{x:5, y:0, id:0, type:'Baggai'}, {x:2, y:0, id:1, type:'NPC'}, {x:3, y:2, id:2, type:'Player'}]
     }
   
     socket.on('show-me-a-moose',data=>{
@@ -27,21 +28,17 @@ class Board extends Component{
     })
     
   }
-    static propTypes = {
-        rows: PropTypes.number,
-        cols: PropTypes.number,
-        onClick: PropTypes.func,
-        primaryColor: PropTypes.string,
-        secondaryColor: PropTypes.string,
-        highlightedSquares: PropTypes.object,
-      };
-      static defaultProps = {
-        rows: 0,
-        cols: 0
-      };
-    componentDidMount(){
-      socket.emit('join-room',{room:this.props.room})
-      
+    async componentDidMount(){
+      socket.emit('join-room',{room:this.props.room, name:this.props.name, url:this.props.url})
+      let a = await axios.get(`/piece/get-pieces/${this.props.campaign_id}/${this.props.board}`);
+      let b = [];
+      for (let i = 0; i < a.data.length; i++){
+        b.push({x:a.data[i].x_coordinate,y:a.data[i].y_coordinate,type:a.data[i].piece_type,id:i,name:a.data[i].character_name,image_url:a.data[i].image_url});
+      }
+  setTimeout(()=>{
+    this.setState({Tokens:b})
+  },1000)
+      console.log(b)
     }
 
 squareSelect = ({x, y}) => {
@@ -86,21 +83,24 @@ makeAMove(){
 
     
     render(){
-
 let characters=this.state.Tokens.map(character => {
-  if(character.type=== 'Baggai'){
-    return(<Token x={character.x} y={character.y} id={character.id} animate  >
-    <Baggai onClick={(e) => this.characterSelect(character.id,e)} />
+  if(character.type=== null){
+    return(<Token x={character.x} y={character.y} id={character.id} animate >
+    <Baggai onClick={(e) => this.characterSelect(character.id,e)} url={character.image_url} />
     </Token>
     )
-  } else if(character.type=== 'NPC'){
+  } else if(character.type=== 'npc'){
     return(<Token x={character.x} y={character.y} id={character.id} animate onClick={() => this.characterSelect(character.id)} >
-      <NPC onClick={(e) => this.characterSelect(character.id,e)}/>
+      <NPC onClick={(e) => this.characterSelect(character.id,e)} url={character.image_url}/>
       </Token >)
-  }else if(character.type==='Player'){
+  }else if(character.type==='player'){
     return(<Token x={character.x} y={character.y} id={character.id} animate onClick={() => this.characterSelect(character.id)} >
-      <Player onClick={(e) => this.characterSelect(character.id,e)}/>
+      <Player onClick={(e) => this.characterSelect(character.id,e)} url={character.image_url}/>
       </Token>)
+  }else{
+    return(<Token x={character.x} y={character.y} id={character.id} animate onClick={() => this.characterSelect(character.id)} >
+    <Player onClick={(e) => this.characterSelect(character.id,e)} url={character.image_url}/>
+    </Token>)
   }
  
 
@@ -108,7 +108,7 @@ let characters=this.state.Tokens.map(character => {
 
 
         return (
-     <Grid rows={this.props.rows} cols={this.props.cols} style={{ width: '70%', height: '90vh' }} onClick={this.squareSelect}>
+     <Grid rows={this.props.rows} cols={this.props.cols} style={{ width:'200%', height: '100%' }} onClick={this.squareSelect}>
     {characters}
      </Grid>
         )
