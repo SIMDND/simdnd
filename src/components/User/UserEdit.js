@@ -47,6 +47,9 @@ class User extends Component {
     this.startGame = this.startGame.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.editCampaign = this.editCampaign.bind(this);
+    this.createBoard = this.createBoard.bind(this);
+    this.editBoard = this.editBoard.bind(this);
+
   }
 
   async componentDidMount() {
@@ -74,6 +77,8 @@ class User extends Component {
       }, 200);
     }
   }
+
+  async 
 
   async createCampaign() {
     let res = await axios.post("/camp/create", {
@@ -105,29 +110,39 @@ class User extends Component {
     });
   }
 
-  colUp = () =>{
-    this.setState({
-      boardCol: this.state.boardCol++
-    })
+  async editBoard() {
+    await axios.put("/board/edit", {
+      new_board_name: this.state.name,
+      board_col: this.state.boardCol,
+      board_row: this.state.boardRow,
+      campaign_id: this.state.selectedCampaignId,
+      board_name: this.state.selectedBoard
+    });
   }
+
+  colUp = () => {
+    this.setState({
+      boardCol: this.state.boardCol + 1
+    });
+  };
 
   colDown = () => {
     this.setState({
-      boardCol: this.state.boardCol--
-    })
-  }
+      boardCol: this.state.boardCol - 1
+    });
+  };
 
-  rowUp = () =>{
+  rowUp = () => {
     this.setState({
-      boardRow: this.state.boardRow++
-    })
-  }
+      boardRow: this.state.boardRow + 1
+    });
+  };
 
-  rowDown = () =>{
+  rowDown = () => {
     this.setState({
-      boardRow: this.state.boardRow--
-    })
-  }
+      boardRow: this.state.boardRow - 1
+    });
+  };
 
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -197,7 +212,7 @@ class User extends Component {
   };
 
   render() {
-    console.log(this.state.boardRow, this.state.boardCol)
+    console.log(this.state.selectedBoard);
     return (
       <div className="user-container">
         <span className="user-split-bar" />
@@ -314,7 +329,7 @@ class User extends Component {
               <select
                 name="selectedBoard"
                 disabled={this.state.selectedCampaign === ""}
-                onChange={e => this.handleChange(e)}
+                onChange={this.handleChange}
               >
                 <option hidden>Choose Board</option>
                 {this.state.boards.map((element, index, arr) => {
@@ -364,12 +379,18 @@ class User extends Component {
                     {this.state.boardCol}
                   </h2>
                   <div className="arrow-container">
-                  <button  style={{background: "none", boxShadow: "none", width: "26px", height: "23px"}}onClick={this.colUp}>
-                    <ArrowUp  phil="enabled" />
-                  </button>
-                  <button  style={{background: "none", boxShadow: "none", width: "26px", height: "23px"}}onClick={this.colUp}>
-                    <ArrowDown onClick={this.colDown} phil="enabled" />
-                  </button>
+                    <button
+                      disabled={this.state.boardCol === 25}
+                      onClick={this.colUp}
+                    >
+                      <i className="fas fa-caret-up" />
+                    </button>
+                    <button
+                      disabled={this.state.boardCol === 1}
+                      onClick={this.colDown}
+                    >
+                      <i className="fas fa-caret-down" />
+                    </button>
                   </div>
                   <h2
                     className="enabled-colrow-select"
@@ -378,21 +399,39 @@ class User extends Component {
                     {this.state.boardRow}
                   </h2>
                   <div className="arrow-container">
-                    <ArrowUp onClick={this.rowUp} phil="enabled" />
-                    <ArrowDown onClick={this.rowDown} phil="enabled" />
+                    <button
+                      disabled={this.state.boardRow === 25}
+                      onClick={this.rowUp}
+                    >
+                      <i className="fas fa-caret-up" />
+                    </button>
+                    <button
+                      disabled={this.state.boardRow === 1}
+                      onClick={this.rowDown}
+                    >
+                      <i className="fas fa-caret-down" />
+                    </button>
                   </div>
                 </div>
               ) : (
                 <div className="col-row-select">
                   <h2 className="disabled-colrow-select">0</h2>
                   <div className="arrow-container">
-                    <ArrowUp phil="disabled" />
-                    <ArrowDown phil="disabled" />
+                    <button disabled>
+                      <i className="fas fa-caret-up" />
+                    </button>
+                    <button disabled>
+                      <i className="fas fa-caret-down" />
+                    </button>
                   </div>
                   <h2 className="disabled-colrow-select">0</h2>
                   <div className="arrow-container">
-                    <ArrowUp phil="disabled" />
-                    <ArrowDown phil="disabled" />
+                    <button disabled>
+                      <i className="fas fa-caret-up" />
+                    </button>
+                    <button disabled>
+                      <i className="fas fa-caret-down" />
+                    </button>
                   </div>
                 </div>
               )}
@@ -407,6 +446,15 @@ class User extends Component {
                 </button>
                 <button
                   disabled={!this.state.editBoard && !this.state.createBoard}
+                  onClick={
+                    this.state.createBoard
+                      ? () => {
+                          this.createBoard();
+                        }
+                      : () => {
+                          this.editBoard();
+                        }
+                  }
                 >
                   Confirm
                 </button>
