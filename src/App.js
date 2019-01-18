@@ -88,8 +88,8 @@ class App extends Component {
         {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/edit/${this.state.userName}`}>
             <h1>{this.state.userName}</h1>
           </Link>}
-          {!this.state.userName && !this.state.userEmail? null:
-            <span></span>}
+          {/* {!this.state.userName && !this.state.userEmail? null:
+            <span></span>} */}
         </div>
       </div >
       <div className="Content-container">

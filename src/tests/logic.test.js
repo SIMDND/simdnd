@@ -5,5 +5,8 @@ describe('Tests Toggle: The Toggle Tester', () => {
     test('if given false returns true', () => {
         expect(toggle(false)).toBe(true)
     })
+    test('if given true returns false', () => {
+        expect(toggle(true)).toBe(false)
+    })
 });
 
