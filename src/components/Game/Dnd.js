@@ -14,7 +14,7 @@ class Dnd extends Component {
     };
   }
   async componentDidMount() {
-    let res = await axios.get(`/board/get-boards/${this.props.campaignId}`);
+    let res = await axios.get(`/board/get-boards/${this.props.match.params.campaign_id}`);
     this.setState({
       boards: res.data,
       currentBoard: res.data.filter(board => board.starting === true)
@@ -28,9 +28,12 @@ class Dnd extends Component {
         return (
               <Board
                 key={i}
-                room={this.props.join.roomCode}
                 rows={this.state.currentBoard[0].board_row}
                 cols={this.state.currentBoard[0].board_col}
+                room={this.props.match.params.room}
+                campaign_id={this.props.match.params.campaign_id}
+                board={this.props.match.params.board}
+
               />
           );
      })
