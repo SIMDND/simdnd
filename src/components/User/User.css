@@ -164,6 +164,7 @@ h4 {
     display:flex;
     align-items:center;
     flex-direction:column;
+    background-color:orange;
 }
 
 .eeeee{
@@ -176,6 +177,7 @@ h4 {
     display:flex;
     align-items:center;
     flex-direction:column;
+    background-color:red;
 }
 
 .bigger-square-inside-board-and-campaign-portion{
@@ -301,6 +303,10 @@ h4 {
     justify-content:space-between;
 }
 
+.rrrddd{
+    height:50px;
+}
+
 .ttgtg{
     height:30px;
     width:100px;
@@ -325,13 +331,15 @@ h4 {
     
 }
 
-.me-me-i-select{
+#me-me-i-select{
     width:120px;
-    height:24px;
+    
 }
 
-.me-me-i-type{
+#me-me-i-type{
     width:100px;
+    position:relative;
+    bottom:15px;
 }
 #aa {
   border-left: 6px solid black;
