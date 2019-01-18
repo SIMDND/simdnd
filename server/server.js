@@ -52,6 +52,7 @@ app.get('/piece/get-pieces/:campaign_id/:board_name',piecectrl.getPieces);
 app.post('/piece/create',piecectrl.createPiece);
 app.put('/piece/edit',piecectrl.editPiece);
 app.delete('/piece/delete/:campaign_id/:board_name/:character_name',piecectrl.deletePiece);
+//Pieces
 
 const io = socket(
     app.listen(SERVER_PORT, () => {
@@ -70,6 +71,7 @@ io.on("connection", socket => {
     socket.on("join-room",data=>{
         console.log('joinedRoom', data.room)
         socket.join(data.room);
+        let newToken = {name:data.name, url:data.url, x:0, y:0}
      
     })
 //chat-box socket stuff
@@ -82,14 +84,27 @@ io.on("connection", socket => {
     })
 
     socket.on('this-is-what-chat-box-should-say',data=>{
-        io.to(data.room).emit('what-should-chat-box-say',{messagesArray:data.messagesArray})
+        io.sockets.in(data.room).emit('what-should-chat-box-say',{messagesArray:data.messagesArray})
+    })
+
+    //start-join-socket.stuff
+    socket.on("me-me-wants-to-join-room", data=>{
+        console.log('made it into me-me-wants-to-join-room');
+        io.sockets.in(data.room).emit('a-player-just-joined-the-room',{token:data.token});
+    })
+
+    socket.on('permission-granted-to-enter-wait-room', data=>{
+        io.sockets.in(data.room).emit('permission-granted-to-enter-wait-room',{character_name:data.character_name,campaign_id:data.campaign_id,board:data.board});
+    })
+
+    socket.on('this-is-the-current-token-array',data=>{
+        io.sockets.in(data.room).emit('this-is-the-current-token-array',{tokens:data.tokens});
     })
 
     socket.on('make-a-move',data=>{
         console.log('move made', data.room);
         io.sockets.in(data.room).emit('show-me-a-moose',{Tokens:data.Tokens})
     })
-
 })
 
 

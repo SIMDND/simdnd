@@ -21,7 +21,7 @@ class Player extends Component {
         </clipPath>
     </defs>
 <image width="35" height="35"
- href={this.props.join.url}
+ href={this.props.url}
   clip-path="url(#circleView)"
   x='50%' y='50%' />
 

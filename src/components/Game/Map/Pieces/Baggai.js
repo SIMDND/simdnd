@@ -21,7 +21,7 @@ class Baggai extends Component {
         </clipPath>
     </defs>
 <image width="35" height='35'
- href={this.props.join.url}
+ href={this.props.url}
   clipPath="url(#circleView)" 
   x='50%' y='50%'
   />

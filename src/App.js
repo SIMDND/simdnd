@@ -13,6 +13,7 @@ import Game from './components/Game/Dnd';
 import UserEdit from './components/User/UserEdit.js';
 import UserStartJoin from './components/User/UserStartJoin.js';
 import UserPieces from './components/User/UserPieces.js';
+import WaitRoom from './components/Game/WaitRoom.js';
 import './App.css';
 import {toggle} from './logic/logic_matt';
 
@@ -88,17 +89,18 @@ class App extends Component {
         {!this.state.userName && !this.state.userEmail? <h1>Login</h1>:<Link className="User-name" to={`/user/edit/${this.state.userName}`}>
             <h1>{this.state.userName}</h1>
           </Link>}
-          {!this.state.userName && !this.state.userEmail? null:
-            <span></span>}
+          {/* {!this.state.userName && !this.state.userEmail? null:
+            <span></span>} */}
         </div>
       </div >
       <div className="Content-container">
         <Switch > 
           <Route exact path = '/' render = {(props) =><About {...props} userName={this.state.userName} userEmail={this.state.userEmail}toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin} bungle="bungle"/> }></Route>
-          <Route exact path = '/game' component = {Game}/>
+          <Route exact path = '/game/:room/:campaign_id/:board' component = {Game}/>
           <Route exact path = '/user/edit/:username' render = {(props) =><UserEdit {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
           <Route exact path = '/user/start-join/:username' render = {(props) =><UserStartJoin {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
           <Route exact path = '/user/pieces/:username' render = {(props) =><UserPieces {...props} userName={this.state.userName} userEmail={this.state.userEmail} toggleLogin={this.toggleLogin} toggleRegister={this.toggleRegister} toggleJoin={this.toggleJoin}/>}></Route>
+          <Route exact path = '/game/waitroom/:room/:campaign_id/:board' render = {(props) =><WaitRoom {...props} userName={this.state.userName} />}></Route>
         </Switch>
       </div>
       </div>
