@@ -88,9 +88,10 @@ class UserPieces extends Component{
                 handleCreatePiece={this.handleCreatePiece}
             />
             <div className="user-container">
+            <span className='user-split-bar'></span>
                 <NavigateUser userName={this.props.userName}></NavigateUser>
                 <div className='wide-screen'>
-                    <div className='board-and-campaign-portion'>
+                    <div className='user-menu'>
                     <h1 className='eeeee'>Select Campaign and Board</h1>
                         <div className='bigger-square-inside-board-and-campaign-portion'>
                             <div className='section-for-selecting-campaign'>
@@ -130,7 +131,7 @@ class UserPieces extends Component{
                             </div>
                         </div>
                     </div>
-                    <div className='pieces-portion'>
+                    <div className='user-menu'>
                         <h1 className='eeeef'>Pieces</h1>
                         <div className = 'option-stuffs'>
                             <button onClick={()=>this.toggleCreatePiece()} disabled={this.state.selectedCampaign === '' || this.state.selectedBoard===''}>Create</button>
@@ -186,14 +187,14 @@ class UserPieces extends Component{
                                     
                             </div>
                             <div className='to-show-and-allow-to-alter-each-characteristic'>
-                                <div className='ttgtg'><h5 className='gtgtt'><input name='name' onChange={e=>this.handleChange(e)} value={this.state.name} className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><select name='type' onChange={e=>this.handleChange(e)} value={this.state.type} className='me-me-i-select' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='name' onChange={e=>this.handleChange(e)} value={this.state.name} id='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><select name='type' onChange={e=>this.handleChange(e)} value={this.state.type} id='me-me-i-select' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}>
                                     <option value='baggai'>Baggai</option>
                                     <option value='npc'>NPC</option>
                                 </select></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input name='x_coordinate' onChange={e=>this.handleChange(e)} value={this.state.x_coordinate} className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input name='y_coordinate' onChange={e=>this.handleChange(e)} value={this.state.y_coordinate} className='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
-                                <div className='ttgtg'><h5 className='gtgtt'><input name='image_url' onChange={e=>this.handleChange(e)} value={this.state.image_url} className='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='x_coordinate' onChange={e=>this.handleChange(e)} value={this.state.x_coordinate} id='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='y_coordinate' onChange={e=>this.handleChange(e)} value={this.state.y_coordinate} id='me-me-i-type' type='number' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
+                                <div className='ttgtg'><h5 className='gtgtt'><input name='image_url' onChange={e=>this.handleChange(e)} value={this.state.image_url} id='me-me-i-type' disabled={this.state.selectedCampaign==='' || this.state.selectedBoard==='' || this.state.selectedPiece===''}></input></h5></div>
                             </div>
                         </div>
                             <button disabled={

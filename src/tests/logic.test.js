@@ -10,3 +10,9 @@ describe('Tests Toggle: The Toggle Tester', () => {
     })
 });
 
+describe('Tests the toggle functionality', () =>{
+    test('if given true, returns false', ()=> {
+        var answer = toggle(true)
+        expect(answer).toBe(false)
+    })
+})
