@@ -6,6 +6,7 @@ import Player from './Pieces/Player'
 import Baggai from './Pieces/Baggai'
 import io from 'socket.io-client';
 import axios from 'axios';
+import {mergeArrays} from '../../../logic/logic_aaron.js';
 import './Board.css'
 
 const socket = io.connect('http://localhost:3674');
@@ -31,10 +32,7 @@ class Board extends Component{
     async componentDidMount(){
       socket.emit('join-room',{room:this.props.room, name:this.props.name, url:this.props.url})
       let a = await axios.get(`/piece/get-pieces/${this.props.campaign_id}/${this.props.board}`);
-      let b = [];
-      for (let i = 0; i < a.data.length; i++){
-        b.push({x:a.data[i].x_coordinate,y:a.data[i].y_coordinate,type:a.data[i].piece_type,id:i,name:a.data[i].character_name,image_url:a.data[i].image_url});
-      }
+      let b = mergeArrays([],a.data);
   setTimeout(()=>{
     this.setState({Tokens:b})
   },1000)

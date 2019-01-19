@@ -6,6 +6,7 @@ const {mergeArrays} = require('../logic/logic_aaron')
 const {getPlayerTokens} = require('../logic/logic_aaron')
 const {shuffleTokens} = require('../logic/logic_aaron')
 const {checkForPlayers} = require('../logic/logic_aaron')
+const {compareArrayLengths} = require('../logic/logic_aaron')
 
 describe('Tests Toggle: The Toggle Tester', () => {
     test('if given false returns true', () => {
@@ -44,16 +45,16 @@ describe('Get Player Tokens Tester', () =>{
     })
 })
 
-describe('Shuffle Tokens Test', () =>{
-    test('Return value of shuffle tokens should be same length as tokens passed in', ()=>{
-        let a = shuffleTokens([{id:0,name:'Charlie'},{id:1,name:'Delta'}]);
-        expect(a.length).toBe(2);
-    })
-})
 
 describe('Check for Players Test', () =>{
     test('Array with element that has piece_type of player should return true', ()=>{
         let a = checkForPlayers([{piece_type:'npc',name:'Charlie'},{piece_type:'player',name:'Delta'}]);
         expect(a).toEqual(true);
+    })
+})
+
+describe('Compare Array Lengths should only return true if the 1st array is smaller than the second',()=>{
+    test('With arrays of equal lengths the test should return false',()=>{
+        expect([3,5,6].length<[6,5,6].length).toEqual(false);
     })
 })
