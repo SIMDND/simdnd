@@ -1,5 +1,5 @@
 //destructure the logic functions
-const {toggle} = require('../logic/logic_matt')
+const {toggle, increment, decrement, } = require('../logic/logic_matt')
 const {cloneArray} = require('../logic/logic_aaron')
 const getType = require('jest-get-type');
 const {mergeArrays} = require('../logic/logic_aaron')
@@ -8,6 +8,8 @@ const {shuffleTokens} = require('../logic/logic_aaron')
 const {checkForPlayers} = require('../logic/logic_aaron')
 const {compareArrayLengths} = require('../logic/logic_aaron')
 
+
+//Matt's Tests
 describe('Tests Toggle: The Toggle Tester', () => {
     test('if given false returns true', () => {
         expect(toggle(false)).toBe(true)
@@ -17,12 +19,25 @@ describe('Tests Toggle: The Toggle Tester', () => {
     })
 });
 
-describe('Tests the toggle functionality', () =>{
-    test('if given true, returns false', ()=> {
-        var answer = toggle(true)
-        expect(answer).toBe(false)
+describe('Increment should return the input value plus 1', () =>{
+    test('if given 1 returns 2', ()=> {
+        expect(increment(1)).toBe(2)
+    })
+    test('if given 0 returns 1', ()=> {
+        expect(increment(0)).toBe(1)
     })
 })
+
+describe('Decrement should return the input value minus 1', () =>{
+    test('if given 1 returns 0', ()=> {
+        expect(decrement(1)).toBe(0)
+    })
+    test('if given 2 returns 1', ()=> {
+        expect(decrement(2)).toBe(1)
+    })
+})
+
+//Aaron's tests
 
 describe('Clone Array Tester', () =>{
     test("return type should be an array", () => {
