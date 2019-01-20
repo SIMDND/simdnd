@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { toggle } from '../../logic/logic_matt'
 import ArrowUp from "../SVG/ArrowUp";
 import ArrowDown from "../SVG/ArrowDown";
 import { Link } from "react-router-dom";
@@ -207,7 +208,7 @@ class User extends Component {
 
   toggle = e => {
     this.setState({
-      [e.target.name]: !this.state[e.target.name]
+      [e.target.name]: toggle(this.state[e.target.name])
     });
   };
 
