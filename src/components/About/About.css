@@ -1,6 +1,6 @@
 .about{
     height: 75vh;
-    width: 75vw;
+    width: 65vw;
     border-radius: 10px;
     display:flex;
     flex-direction:column;
@@ -8,7 +8,8 @@
     overflow:hidden;
     background: rgb(20,20,20);
     box-shadow: 5px 6px 4px black;
-    padding: 25px
+    padding: 25px;
+    color:rgb(150, 150, 150);
 }
 
 .title-card{

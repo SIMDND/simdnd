@@ -31,16 +31,16 @@ class About extends Component {
     return (
       <div className="about">
         <h1 className="title-card">Welcome!</h1>
-        <h1>
-          Phat Dragon is the ultimate D20 Roll-Playing Game Experience!
-        </h1>
+        <h1>Phat Dragon is the ultimate D20 Roll-Playing Game Experience!</h1>
         <h2>
-            Phat Dragon is designed to help tabletop players set up game boards to play with eachother remotely. One simply has to create an account and then they can enjoy all of Phat Dragon's features. Once players are logged in they can either create or join rooms and see their game pieces move live!
+          Phat Dragon is designed to help tabletop players set up game boards to
+          play with eachother remotely. One simply has to create an account and
+          then they can enjoy all of Phat Dragon's features. Once players are
+          logged in they can either create or join rooms and see their game
+          pieces move live!
         </h2>
         <h2>What are you waiting for? Join now and play!</h2>
-        {this.state.userEmail || this.state.userName ? (
-          null
-        ) : (
+        {this.state.userEmail || this.state.userName ? null : (
           <div className="options">
             <button onClick={this.props.toggleLogin}>Login</button>
             <button onClick={this.props.toggleRegister}>Register</button>
